@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 	<meta name="description" content="Admin, Dashboard, Bootstrap" />
-	<link rel="shortcut icon" sizes="196x196"  href="{{ asset('images/logo.png') }}">
+	<link rel="shortcut icon" sizes="196x196"  href="{{ asset('images/logopag.png') }}">
 	<title>TSTM - Home</title>
 
     <link rel="stylesheet" href="{{asset("bower/font-awesome/css/font-awesome.min.css")}}">
@@ -124,14 +124,18 @@
         <li class="dropdown">
           <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-hc-lg zmdi-settings"></i></a>
           <ul class="dropdown-menu animated flipInY">
-			<li><a href="javascript:void(0)"><h5 id="etiq_name"><i class="zmdi m-r-md zmdi-hc-lg zmdi-account-box"></i>JUAN</h5></a></li>
-            <li><a href="index.html"><i class="zmdi m-r-md zmdi-hc-lg zmdi-square-down"></i>Cerrar Sesión</a></li>
+			<li><a href="javascript:void(0)"><h5 id="etiq_name"><i class="zmdi m-r-md zmdi-hc-lg zmdi-account-box"></i>{{Auth::user()->nombre}}</h5></a></li>
+            <li><a href="{{ route('logout') }}"   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+            <i class="zmdi m-r-md zmdi-hc-lg zmdi-square-down"></i>Cerrar Sesión</a></li>
 
 		  </ul>
 
         </li>
 
-
+ <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
       </ul>
     </div>
   </div><!-- navbar-container -->
@@ -197,9 +201,9 @@
 
 <!-- APP MAIN ==========-->
 <main id="app-main" class="app-main">
-  <div  class="wrap">
-	<div style="background: #f5f5f5; padding:10px; border-radius:10px;" id="contenido" class="contenido">
-        @yield('contenido')
+  <div id="app" class="app">
+	<div style="background: #f5f5f5; padding:10px; border-radius:10px;" id="content" class="content">
+        @yield('content')
 
     </div>
 </div><!-- .wrap -->
