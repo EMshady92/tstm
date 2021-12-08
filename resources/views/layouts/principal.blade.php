@@ -148,7 +148,7 @@
     <div class="menubar-scroll-inner" >
       <ul class="app-menu">
         <li class="has-submenu">
-          <a href="javascript:void(0);" class="submenu-toggle">
+          <a class="submenu-toggle">
             <i class="menu-icon zmdi zmdi-money zmdi-hc-lg"></i>
             <span class="menu-text">Compras</span>
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
@@ -159,21 +159,24 @@
             <li><a href="javascript:C_Reportes();"><span class="menu-text">Reportes</span></a></li>
           </ul>
         </li>
+        {{-- Recibo --}}
         <li class="has-submenu">
-          <a href="javascript:void(0);" class="submenu-toggle">
+          <a class="submenu-toggle">
             <i class="menu-icon zmdi zmdi-caret-right-circle zmdi-hc-lg"></i>
             <span class="menu-text">Recibo</span>
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
           <ul class="submenu">
-            <li><a href="javascript:Cargar_modulo_dashboard();"><span class="menu-text">Dashboard</span></a></li>
-            <li><a href="javascript:B_Actividad_diaria_cargar();"><span class="menu-text">Programación diaria</span></a></li>
-            <li><a href="javascript:B_recepcion();"><span class="menu-text">Recepción</span></a></li>
-            <li><a href="javascript:B_Reportes();"><span class="menu-text">Reportes</span></a></li>
+            <li><a><span class="menu-text">Dashboard</span></a></li>
+            <li><a><span class="menu-text">Programación diaria</span></a></li>
+            <li><a><span class="menu-text">Recepción</span></a></li>
+            <li><a><span class="menu-text">Reportes</span></a></li>
           </ul>
         </li>
+        {{-- Recibo --}}
+        {{-- envio --}}
         <li class="has-submenu">
-          <a href="javascript:void(0);" class="submenu-toggle">
+          <a class="submenu-toggle">
             <i class="menu-icon zmdi zmdi-caret-left-circle zmdi-hc-lg"></i>
             <span class="menu-text">Envío</span>
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
@@ -184,8 +187,30 @@
             <li><a href="javascript:Cargar_modulo_reportes_envio();"><span class="menu-text">Reportes</span></a></li>
             <li><a href="javascript:Cargar_modulo_usuarios();"><span class="menu-text">Configuración</span></a></li>
           </ul>
-		    </li>
-
+	    </li>
+        {{-- envio --}}
+        {{-- configuracion --}}
+        <li class="has-submenu">
+          <a class="submenu-toggle">
+            <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
+            <span class="menu-text">Configuración</span>
+            <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
+          </a>
+          <ul class="submenu">
+            <li><a><span class="menu-text">Usuarios</span></a></li>
+            <li><a><span class="menu-text">Usuarios Kioskos</span></a></li>
+            <li><a><span class="menu-text">Catálogos</span></a></li>
+            <li><a><span class="menu-text">Materia prima</span></a></li>
+            <li><a><span class="menu-text">Ventas</span></a></li>
+            <li><a><span class="menu-text">Sal / Cal</span></a></li>
+            <li><a><span class="menu-text">Bypro</span></a></li>
+            <li><a><span class="menu-text">Calidad</span></a></li>
+            <li><a><span class="menu-text">Update inventario</span></a></li>
+            <li><a><span class="menu-text">Materia prima</span></a></li>
+            <li><a><span class="menu-text">Reporte global</span></a></li>
+          </ul>
+        </li>
+       {{-- configuracion --}}
 
 	  </ul><!-- .app-menu -->
 
@@ -227,10 +252,11 @@
 	<!-- endbuild -->
 
 	<!-- build:js ../assets/js/app.min.js -->
-	<script src="assets/js/library.js"></script>
-	<script src="assets/js/plugins.js"></script>
-	<script src="assets/js/app.js"></script>
-    <script src="assets/js/app-nativo.js"></script>
+
+	 <script src="{{asset("js/library.js")}}"></script>
+      <script src="{{asset("js/plugins.js")}}"></script>
+     <script src="{{asset("js/app.js")}}"></script>
+     <script src="{{asset("js/app-nativo.js")}}"></script>
 	<!-- endbuild -->
     <script src="{{asset("bower/moment/moment.js")}}"></script>
     <script src="{{asset("bower/fullcalendar/dist/fullcalendar.min.js")}}"></script>
