@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\DireccionesModel;
+use DB;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 class ListasController extends Controller
 {
     /**
@@ -13,7 +18,9 @@ class ListasController extends Controller
      */
     public function index()
     {
-        //van las tablas
+       $listas = DB::table('users')->get();
+
+       return view('listas.index', ['listas' => $listas]);
     }
 
     /**
@@ -23,7 +30,7 @@ class ListasController extends Controller
      */
     public function create()
     {
-        //formulario
+        return view('listas.create');
     }
 
     /**

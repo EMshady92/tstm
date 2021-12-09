@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ListasModel extends Model
 {
-    use HasFactory;
+    protected $table ="listas";
 }
