@@ -17,6 +17,7 @@ class Listas extends Migration
             $table->id();
             $table->string('TIPO');
             $table->string('NOMBRE');
+            $table->string('ESTADO');
             $table->timestamps();
         });
     }

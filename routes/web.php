@@ -22,4 +22,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('listas', ListasController::class);
+//listas
+Route::resource('users', App\Http\Controllers\UsersController::class);
+Route::post('guardar_usuario',[App\Http\Controllers\UsersController::class, 'guardar_usuario']);
+//listas
+Route::resource('listas', App\Http\Controllers\ListasController::class);
+
+

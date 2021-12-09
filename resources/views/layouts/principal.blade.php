@@ -33,6 +33,7 @@
 
   <script language="javascript" type="text/javascript" src="js/funciones.js"></script>
   <script language="javascript" type="text/javascript" src="js/funcionesM.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="sweetalert2.all.min.js"></script>
 
@@ -197,7 +198,7 @@
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
           <ul class="submenu">
-            <li><a><span class="menu-text">Usuarios</span></a></li>
+            <li><a href="/users"><span class="menu-text">Usuarios</span></a></li>
             <li><a><span class="menu-text">Usuarios Kioskos</span></a></li>
             <li><a><span class="menu-text">Catálogos</span></a></li>
             <li><a><span class="menu-text">Materia prima</span></a></li>
@@ -247,7 +248,8 @@
     <script src="{{asset("bower/jquery-slimscroll/jquery.slimscroll.js")}}"></script>
     <script src="{{asset("bower/perfect-scrollbar/js/perfect-scrollbar.jquery.js")}}"></script>
     <script src="{{asset("bower/PACE/pace.min.js")}}"></script>
-
+    <script src="{{asset("js/script.js")}}"></script>{{--
+    {!!Html::script('js/script.js')!!} --}}
   <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
 	<!-- endbuild -->
 
