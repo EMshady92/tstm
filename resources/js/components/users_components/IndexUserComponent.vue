@@ -1,9 +1,6 @@
-@extends('layouts.principal')
-@section('content')
-<!-- Start Content-->
-@include('users.modal_users_create')
-@include('users.modal_users_edit')
-{{-- <div id="inicio">
+<template>
+  <div>
+      <div id="inicio">
     <div class="row">
         <div class="col-md-12">
             <div class="widget p-md" style="align-content: center;">
@@ -41,29 +38,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
-                                    <tr>
-                                    <td>{{$user->nombre}}</td>
-                                    <td>{{$user->usuario}}</td>
-                                    <td>{{-- <a  href="{{ route('users.edit',$user->id) }}"
-                                        class="btn waves-effect waves-light btn-primary" role="button"><i class="zmdi zmdi-edit"></i></a>
 
+                                    <tr v-for="us in usuarios" :key="us.id">
+                                    <td>{{us.nombre}}</td>
+                                    <td>{{us.usuario}}</td>
+                                    <td>
                                         <button type="button"
                                         class="btn btn-success waves-effect waves-light btn-success btn-sm"
                                         data-toggle="modal"
 
-                                      data-target="#modal_users_edit"
+                                            data-target="#modal_users_edit"
                                         data-dismiss="modal" role="button">
                                         <i class="zmdi zmdi-edit"></i></button>
 
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
-                                    <a class="btn waves-effect waves-light btn-warning" onclick=inactivar('{{$user->id}}','users');
+                                 <!--        <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token"> -->
+                                    <a class="btn waves-effect waves-light btn-warning" onclick="inactivar();"
                                              style="margin-right: 10px;" role="button"><i
                                                 class="zmdi zmdi-delete"></i></a>
                                         </td>
 
                                     </tr>
-                                    @endforeach
+
 
                                 </tbody>
                             </table>
@@ -73,10 +68,34 @@
             </div>
         </div>
     </div>
-</div> --}}
-<index_user_component></index_user_component>
+</div>
+  </div>
+</template>
 
-  <script type="application/javascript">
- $("#LOL").DataTable();
+<script>
+    export default {
+
+         data(){
+            return{
+
+                usuarios:[], //Este array contendrá las tareas de nuestra bd
+            }
+        },
+       methods:{
+          async listar(){
+              var res=await axios.get('users');
+              this.usuarios=res.data;
+
+           }
+
+       },
+             mounted() {
+                  this.listar();
+             },
+
+    }
 </script>
-@endsection
+
+<style>
+
+</style>

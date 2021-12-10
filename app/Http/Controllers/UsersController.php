@@ -20,9 +20,16 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->get();
+       /*  $users = DB::table('users')->get();
 
-        return view('users.index', ['users' => $users]);
+        return view('users.index'); */
+        return UsersModel::get();
+    }
+
+     public function lista_usuarios()
+    {
+        return view('users.index');
+        /* return UsersModel::get(); */
     }
 
     /**

@@ -24,6 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //listas
 Route::resource('users', App\Http\Controllers\UsersController::class);
+Route::get('lista_usuarios', [App\Http\Controllers\UsersController::class, 'lista_usuarios']);
 Route::post('guardar_usuario',[App\Http\Controllers\UsersController::class, 'guardar_usuario']);
 //listas
 Route::resource('listas', App\Http\Controllers\ListasController::class);
