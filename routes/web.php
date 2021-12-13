@@ -27,5 +27,7 @@ Route::resource('users', App\Http\Controllers\UsersController::class);
 Route::post('guardar_usuario',[App\Http\Controllers\UsersController::class, 'guardar_usuario']);
 //listas
 Route::resource('listas', App\Http\Controllers\ListasController::class);
+//listas sal-cal
+Route::resource('listas_cal_sal', App\Http\Controllers\ListasCalSalController::class);
 
 
