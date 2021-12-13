@@ -410,10 +410,6 @@ class ClassLoader
     public function unregister()
     {
         spl_autoload_unregister(array($this, 'loadClass'));
-
-        if (null !== $this->vendorDir) {
-            unset(self::$registeredLoaders[$this->vendorDir]);
-        }
     }
 
     /**

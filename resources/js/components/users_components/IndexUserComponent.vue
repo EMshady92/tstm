@@ -83,13 +83,13 @@
         },
        methods:{
           async listar(){
-              var res=await axios.get('users');
+              const res=await axios.get('/users');
               this.usuarios=res.data;
 
            }
 
        },
-             mounted() {
+             created() {
                   this.listar();
              },
 

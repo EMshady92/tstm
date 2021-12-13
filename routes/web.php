@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListasController;
+use App\Http\Controllers\ListasVentasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,5 +29,9 @@ Route::get('lista_usuarios', [App\Http\Controllers\UsersController::class, 'list
 Route::post('guardar_usuario',[App\Http\Controllers\UsersController::class, 'guardar_usuario']);
 //listas
 Route::resource('listas', App\Http\Controllers\ListasController::class);
+//listas sal-cal
+Route::resource('listas_cal_sal', App\Http\Controllers\ListasCalSalController::class);
+//listas ventas
+Route::resource('listas_ventas', App\Http\Controllers\ListasCalSalController::class);
 
 
