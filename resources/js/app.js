@@ -21,6 +21,7 @@ window.Vue = require('vue').default;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('create_users_component', require('./components/users_components/UserCreateComponent.vue').default);
+Vue.component('edit_users_component', require('./components/users_components/UserEditComponent.vue').default);
 Vue.component('index_user_component', require('./components/users_components/IndexUserComponent.vue').default);
 
 
