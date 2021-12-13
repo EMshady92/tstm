@@ -1,21 +1,9 @@
-<div class="modal fade bs-example-modal-xl" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nuevo usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-             {{--    <create_users_component></create_users_component> --}}
-  <form action="/subir_razon_notificacion" id="form_subir_razon" name="form_subir_razon" method="post" files="true"
-                    enctype="multipart/form-data" accept-charset="UTF-8">
-                    {{csrf_field()}}
-
-                <label for="monto_ingreso">Nombre:</label>
+<template>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                     <label for="monto_ingreso">Nombre:</label>
                 <input type="text" class="form-control" id="nombre_e" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="" value="">
 
                 <label for="fecha_ingreso">Usuario:</label>
@@ -84,7 +72,7 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-1 col-sm-offset-7">
-                    <input id="check7_e" type="checkbox"class=""/><br>
+                    <input id="check7_e" type="checkbox" class=""/><br>
                   </div>
                   <div class="col-sm-4" style="margin:0;">
                     <label for="check7_e">Reportes:</label>
@@ -286,12 +274,18 @@
                         Cancelar
                     </button>
                 </div>
-
-            </form>
-
-        </div>
-
-
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</template>
+
+<script>
+    export default {
+
+    }
+</script>
+
+<style>
+
+</style>

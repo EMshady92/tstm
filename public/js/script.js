@@ -38,6 +38,7 @@ function inactivar(id, aux) {
 function guardar_usuario() {
 
     var dataString = $('#formulario').serialize(); // carga todos
+    var form = document.getElementById('formulario');
     console.log(dataString);
     $.ajax({
         type: "POST",
