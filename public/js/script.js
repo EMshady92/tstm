@@ -38,18 +38,44 @@ function inactivar(id, aux) {
 function guardar_usuario() {
 
     var dataString = $('#formulario').serialize(); // carga todos
-    var form = document.getElementById('formulario');
-    console.log(dataString);
     $.ajax({
         type: "POST",
         method: 'post',
         url: "/guardar_usuario",
         data: dataString,
         success: function (data) {
-           alert(data.pass)
 
+            Swal.fire(
+                'Exito!',
+                'Se ha registrado el usuario: '+data.user.nombre+' correctamente',
+                'success'
+            )
         }
-    });
 
+    });
+    setTimeout(function () { location.reload() }, 1000);
+
+}
+
+///editar usuario
+function editar_usuario($id) {
+    var dataString = $('#edit_users').serialize(); // carga todos
+    console.log(dataString);
+    $.ajax({
+        type: "GET",
+        method: 'get',
+        url: "/actualiza_user"+"/"+$id,
+        data: dataString,
+        success: function (data) {
+
+            Swal.fire(
+                'Exito!',
+                'Se ha registrado el usuario: '+data.user.nombre+' correctamente',
+                'success'
+            )
+        }
+
+    });
+   // setTimeout(function () { location.reload() }, 1000);
 
 }

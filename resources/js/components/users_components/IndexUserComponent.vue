@@ -81,17 +81,24 @@
                 usuarios:[], //Este array contendrá las tareas de nuestra bd
             }
         },
+        created() {
+                  this.fetchProducts();
+                  console.log(this.usuarios);
+             },
        methods:{
-          async listar(){
+         /*  async listar(){
               const res=await axios.get('/users');
               this.usuarios=res.data;
 
-           }
+           } */
+           fetchProducts(){
+      axios.get('/lista_usuarios').then((responce)=>{
+        this.usuarios = responce.data.users;
+      });
+    }
 
        },
-             created() {
-                  this.listar();
-             },
+
 
     }
 </script>

@@ -20,16 +20,27 @@ class UsersController extends Controller
      */
     public function index()
     {
-       /*  $users = DB::table('users')->get();
+        $users = DB::table('users')->get();
 
-        return view('users.index'); */
-        return UsersModel::get();
+
+        //return UsersModel::get();
+        return view('users.index',['users'=>$users]);
     }
 
      public function lista_usuarios()
     {
-        return view('users.index');
-        /* return UsersModel::get(); */
+        $users = DB::table('users')->get();
+       // return view('users.index');
+        return $users;
+    }
+
+    public function modal_edit_users($id)
+    {
+        $user = DB::table('users')
+        ->where('users.id','=',$id)
+        ->first();
+
+        return $user;
     }
 
     /**
@@ -50,7 +61,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-
+        var_dump($request->nombre);
     }
 
      /**
@@ -60,22 +71,21 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function guardar_usuario(Request $request){
+
         if ($request->ajax()) {
             //$user=Auth::user();
-          /*   $lista=new UsersModel;
-            $lista->nombre=$request->get('nombre');
-            $lista->usuario=$request->get('usuario');
-            $lista->email=$request->get('email');
-
-            $lista->password=$request->get('password');
- */
-            //$lista->estado="ACTIVO";
-        /*     $lista->save(); */
+             $user=new UsersModel;
+            $user->nombre=$request->get('nombre');
+            $user->usuario=$request->get('usuario');
+            $user->email=$request->get('email');
+            $user->password=Hash::make( $request->get('password'));
+            $user->estado="ACTIVO";
+            $user->save();
            // DB::select('CALL InsertarMovimiento ("'.$user->id.'","create","tipos_promociones","'.$promocion->id.'","'.base64_encode(json_encode($promocion)).'"," ","El usuario ha creado un nuevo tipo de promoción")');
-           $pass = $request->get('nombre');
-           return response()->json(['pass'=>$pass]);
-           }
 
+           return response()->json(['user'=>$user]);
+
+        }
 
     }
 
@@ -98,7 +108,27 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+
+    }
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function actualiza_user(Request $request ,$id)
+    {
+
+        $user=UsersModel::findOrFail($id);
+        $user->nombre=$request->get('nombre');
+        $user->usuario=$request->get('usuario');
+        $user->email=$request->get('email');
+        $user->password=Hash::make( $request->get('password'));
+        $user->estado="ACTIVO";
+        $user->update();
+        return response(['direccion'=>$direccion]);
+
     }
 
     /**
@@ -121,6 +151,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+              $user=UsersModel::findOrFail($id);
+              $user->estado="INACTIVO";
+              $user->update();
     }
 }
