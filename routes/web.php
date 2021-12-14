@@ -32,6 +32,6 @@ Route::resource('listas', App\Http\Controllers\ListasController::class);
 //listas sal-cal
 Route::resource('listas_cal_sal', App\Http\Controllers\ListasCalSalController::class);
 //listas ventas
-Route::resource('listas_ventas', App\Http\Controllers\ListasCalSalController::class);
+Route::resource('listas_ventas', App\Http\Controllers\ListasVentasController::class);
 
 

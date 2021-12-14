@@ -10,7 +10,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                        <li class="breadcrumb-item"><a href="/listas">Listas Ventas</a></li>
+                        <li class="breadcrumb-item"><a href="/listas_ventas">Listas Ventas</a></li>
                         <li class="breadcrumb-item active">Registro de Ventas</li>
                     </ol>
                 </div>

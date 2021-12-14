@@ -33,14 +33,14 @@
                         <div>
                             <h4 class="header-title">Formulario de edición</h4>
                             <p class="sub-header">
-                                Formulario para editar : {{$listas->nombre}}
+                                Formulario para editar : {{$lista_ventas->nombre}}
                             .
                             </p>
 
 
 
 
-                            <form action="{{url('/listas_cal_sal', [$listas->id])}}" id="formulario" method="post" class="form-horizontal parsley-examples" enctype="multipart/form-data" accept-charset="UTF-8" >
+                            <form action="{{url('/listas_ventas', [$lista_ventas->id])}}" id="formulario" method="post" class="form-horizontal parsley-examples" enctype="multipart/form-data" accept-charset="UTF-8" >
                             {{csrf_field()}}
 
 							<input type="hidden" name="_method" value="PUT">
@@ -49,7 +49,7 @@
                                 <label for="tipo">Tipo<span class="text-danger">*</span></label><br>
                                 <select class="form-control" name="tipo" id="tipo" required
                                     data-toggle="">
-                                    @if ($listas->tipo == '1')
+                                    @if ($lista_ventas->tipo == '1')
                                     <option selected value="1">Cliente</option>
                                     <option value="2">Materiales</option>
                                     @else
@@ -65,7 +65,7 @@
                             <div class="form-group" >
                                     <label for="AcuerdoName">Nombre<span class="text-danger">*</span></label>
                                     <input type="text" name="nombre"  parsley-trigger="change" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
-                                     value="{{$listas->NOMBRE}}" class="form-control" id="nombre">
+                                     value="{{$lista_ventas->NOMBRE}}" class="form-control" id="nombre">
                             </div>
 
 
