@@ -61,7 +61,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        var_dump($request->nombre);
+
     }
 
      /**
@@ -127,7 +127,7 @@ class UsersController extends Controller
         $user->password=Hash::make( $request->get('password'));
         $user->estado="ACTIVO";
         $user->update();
-        return response(['direccion'=>$direccion]);
+        return response(['user'=>$user]);
 
     }
 
@@ -140,7 +140,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        print_r('hola');
     }
 
     /**

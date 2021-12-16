@@ -27,7 +27,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('users', App\Http\Controllers\UsersController::class);
 Route::get('lista_usuarios', [App\Http\Controllers\UsersController::class, 'lista_usuarios']);
 Route::post('guardar_usuario',[App\Http\Controllers\UsersController::class, 'guardar_usuario']);
-Route::get('actualiza_user/{id}',[App\Http\Controllers\UsersController::class, 'actualiza_user'])->name('users.actualiza_user');
+Route::put('actualiza_user/{id}',[App\Http\Controllers\UsersController::class, 'update'])->name('users.update');
 //listas
 Route::resource('listas', App\Http\Controllers\ListasController::class);
 //listas sal-cal

@@ -60,10 +60,14 @@ function guardar_usuario() {
 ///editar usuario
 function editar_usuario($id) {
     var dataString = $('#edit_users').serialize(); // carga todos
-    console.log(dataString);
+    var nombre = document.getElementById('nombre').value;
+    var usuario = document.getElementById('usuario').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    console.log(nombre);
     $.ajax({
-        type: "GET",
-        method: 'get',
+        type: "POST",
+        method: 'post',
         url: "/actualiza_user"+"/"+$id,
         data: dataString,
         success: function (data) {

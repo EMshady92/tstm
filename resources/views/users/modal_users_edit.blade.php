@@ -1,4 +1,4 @@
-@inject('modal_edit_users','App\Http\Controllers\UsersController')
+
 <div class="modal fade bs-example-modal-xl" id="modal_users_edit{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -12,73 +12,45 @@
 
             <div class="modal-body">
               {{--  <create_users_component></create_users_component> --}}
-              <form name="edit_users" id="edit_users">
-                @csrf
+                            <form action="{{url('/users', [$user->id])}}" id="editar_user" method="post" class="form-horizontal parsley-examples" enctype="multipart/form-data" accept-charset="UTF-8" >
+                                    {{csrf_field()}}
 
-
-                <div>
-
-
-                    <div class="form-group">
-                        <label for="nombre">Nombre<span class="text-danger">*</span></label>
-                        <input type="text" name="nombre"
-                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
-                            maxlength="100" minlength="1"
-                            parsley-trigger="change" required value="{{$user->nombre}}"
-                            class="form-control" id="nombre">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="userName">Usuario<span class="text-danger">*</span></label>
-                        <input type="text" name="usuario"
-                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
-                            maxlength="100" minlength="1"
-                            parsley-trigger="change" required value="{{$user->usuario}}"
-                            class="form-control" id="usuario">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="userName">Correo<span class="text-danger">*</span></label>
-                        <input type="email" name="email"
-                            parsley-trigger="change" required value="{{$user->email}}"
-                            class="form-control" id="email">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="userName">Contraseña<span class="text-danger">*</span></label>
-                        <input type="password" name="password"
-
-                           minlength="6"
-                            parsley-trigger="change"  placeholder="Ingresar contraseña"
-                            class="form-control" id="password">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="userName">Confirmar Contraseña<span class="text-danger">*</span></label>
-                        <input type="password" name="conf_pass"
-
-                            maxlength="100" minlength="1"
-                            parsley-trigger="change"  placeholder="Confirmar contraseña"
-                            class="form-control" id="conf_pass">
-                    </div>
+                                    <input type="hidden" name="_method" value="PUT">
 
 
 
-                    <div class="form-group text-right mb-0">
-                        <button class="btn btn-success waves-effect waves-light mr-1" onclick="editar_usuario('{{$user->id}}');" id="submit_linea"
-                            type="button">
-                            Guardar
-                        </button>
-                        <button data-dismiss="modal" class="btn btn-danger waves-effect">
-                            Cancelar
-                        </button>
-                    </div>
 
-                </div>
-            </form>
+                                    <div class="form-group" >
+                                            <label for="AcuerdoName">Nombre<span class="text-danger">*</span></label>
+                                            <input type="text" name="nombre"  parsley-trigger="change" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                            value="{{$user->nombre}}" class="form-control" id="nombre">
+                                    </div>
+
+
+                                </div>
+
+
+
+
+                                        <div class="form-group text-right mb-0">
+                                            <button class="btn btn-primary waves-effect waves-light mr-1" onclick="submit();" id="submit" type="submit">
+                                                Guardar
+                                            </button>
+                                            <button type="reset" onclick="location.href='/users'" class="btn btn-secondary waves-effect">
+                                                Cancelar
+                                            </button>
+                                        </div>
+
+                                    </form>
         </div>
 
 
         </div>
     </div>
 </div>
+<script>
+    function submit(){
+     var form = document.getElementById('editar_user');
+     form.submit();
+    }
+</script>

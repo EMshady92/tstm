@@ -8,12 +8,12 @@
 	<link rel="shortcut icon" sizes="196x196"  href="{{ asset('images/logopag.png') }}">
 	<title>TSTM - Home</title>
 
-    <link rel="stylesheet" href="{{asset("libs/bower/font-awesome/css/font-awesome.min.css")}}">
-    <link rel="stylesheet" href="{{asset("libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css")}}">
+    <link rel="stylesheet" href="{{asset("bower/font-awesome/css/font-awesome.min.css")}}">
+    <link rel="stylesheet" href="{{asset("bower/material-design-iconic-font/dist/css/material-design-iconic-font.css")}}">
 	<!-- build:css ../assets/css/app.min.css -->
-    <link rel="stylesheet" href="{{asset("libs/bower/animate.css/animate.min.css")}}">
-    <link rel="stylesheet" href="{{asset("libs/bower/fullcalendar/dist/fullcalendar.min.css")}}">
-    <link rel="stylesheet" href="{{asset("libs/bower/perfect-scrollbar/css/perfect-scrollbar.css")}}">
+    <link rel="stylesheet" href="{{asset("bower/animate.css/animate.min.css")}}">
+    <link rel="stylesheet" href="{{asset("bower/fullcalendar/dist/fullcalendar.min.css")}}">
+    <link rel="stylesheet" href="{{asset("bower/perfect-scrollbar/css/perfect-scrollbar.css")}}">
     <link rel="stylesheet" href="{{asset("css/bootstrap.css")}}">
     <link rel="stylesheet" href="{{asset("css/core.css")}}">
  {{--    <link rel="stylesheet" href="{{asset("css/app.css")}}"> --}}
@@ -26,7 +26,7 @@
 
  <script>
 	</script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
@@ -232,9 +232,6 @@
         @yield('content')
 
     </div>
-
-
-
 </div><!-- .wrap -->
   <!-- APP FOOTER -->
 
@@ -243,15 +240,14 @@
 
 	<!-- build:js ../assets/js/core.min.js -->
 
-     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="{{asset("js/app.js")}}"></script>
-    <script src="{{asset("libs/bower/jquery/dist/jquery.js")}}"></script>
-    <script src="{{asset("libs/bower/jquery-ui/jquery-ui.min.js")}}"></script>
-	<script src="{{asset("libs/bower/jQuery-Storage-API/jquery.storageapi.min.js")}}"></script>
-    <script src="{{asset("libs/bower/bootstrap-sass/assets/javascripts/bootstrap.js")}}"></script>
-    <script src="{{asset("libs/bower/jquery-slimscroll/jquery.slimscroll.js")}}"></script>
-    <script src="{{asset("libs/bower/perfect-scrollbar/js/perfect-scrollbar.jquery.js")}}"></script>
-    <script src="{{asset("libs/bower/PACE/pace.min.js")}}"></script>
+    <script src="{{asset("bower/jquery/dist/jquery.js")}}"></script>
+    <script src="{{asset("bower/jquery-ui/jquery-ui.min.js")}}"></script>
+	<script src="{{asset("bower/jQuery-Storage-API/jquery.storageapi.min.js")}}"></script>
+    <script src="{{asset("bower/bootstrap-sass/assets/javascripts/bootstrap.js")}}"></script>
+    <script src="{{asset("bower/jquery-slimscroll/jquery.slimscroll.js")}}"></script>
+    <script src="{{asset("bower/perfect-scrollbar/js/perfect-scrollbar.jquery.js")}}"></script>
+    <script src="{{asset("bower/PACE/pace.min.js")}}"></script>
     <script src="{{asset("js/script.js")}}"></script>{{--
     {!!Html::script('js/script.js')!!} --}}
   <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
@@ -264,9 +260,10 @@
      <script src="{{asset("js/app.js")}}"></script>
      <script src="{{asset("js/app-nativo.js")}}"></script>
 	<!-- endbuild -->
-    <script src="{{asset("libs/bower/moment/moment.js")}}"></script>
-    <script src="{{asset("libs/bower/fullcalendar/dist/fullcalendar.min.js")}}"></script>
+    <script src="{{asset("bower/moment/moment.js")}}"></script>
+    <script src="{{asset("bower/fullcalendar/dist/fullcalendar.min.js")}}"></script>
     <script src="{{asset("js/fullcalendar.js")}}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 @yield('javascript')
 
