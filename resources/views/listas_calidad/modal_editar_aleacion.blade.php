@@ -15,8 +15,8 @@
                 id="formulario_nuevo_cliente">
                 {{csrf_field()}}
 
-                <input autocapitalize="off" id="aleacion_edit" name="cliente_edit" class="swal2-input" placeholder="" type="text" style="display: flex;">
-                <input style="display:none" autocapitalize="off" id="cliente_id" name="cliente_id" class="swal2-input" placeholder="" type="text" style="display: flex;">
+                <input autocapitalize="off" id="aleacion_edit" name="aleacion_edit" class="swal2-input" placeholder="" type="text" style="display: flex;">
+                <input style="display:none" autocapitalize="off" id="aleacion_id" name="aleacion_id" class="swal2-input" placeholder="" type="text" style="display: flex;">
 
                     <div class="form-group text-right mb-0">
                         <button class="btn btn-success waves-effect waves-light mr-1" onclick="editar_aleacion();" id="submit_linea"

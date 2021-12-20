@@ -96,6 +96,30 @@ class ListasAleacionesController extends Controller
         //
     }
 
+    public function editar_aleacion($nombre,$id){
+
+
+        $user=Auth::user();
+        $aleacion=ListasAleacionesModel::findOrFail($id);
+        $aleacion->nombre=$nombre;
+        $aleacion->estado="ACTIVO";
+        $aleacion->captura="Nombre: ". $user->nombre ." Usuario:". $user->usuario ." Email:" .$user->email;
+        $aleacion->update();
+       // DB::select('CALL InsertarMovimiento ("'.$user->id.'","create","tipos_promociones","'.$promocion->id.'","'.base64_encode(json_encode($promocion)).'"," ","El usuario ha creado un nuevo tipo de promoción")');
+
+       if ($aleacion->update()){
+           $aleaciones = DB::table('listas_aleaciones')
+           ->where('listas_aleaciones.estado','=','ACTIVO')
+           ->orderBy('created_at','DESC')->get();
+           return response()->json(['aleacion'=>$aleacion,'aleaciones'=>$aleaciones]);
+       }else{
+           return false;
+       }
+
+
+
+}
+
     /**
      * Update the specified resource in storage.
      *
@@ -116,13 +140,19 @@ class ListasAleacionesController extends Controller
      */
     public function destroy($id)
     {
-        //
+            /*  $user=Auth::user(); */
+            $aleacion=ListasAleacionesModel::findOrFail($id);
+            // $lista->captura=$user->name;
+            $aleacion->estado="INACTIVO";
+            $aleacion->update();
+            return $aleacion;
     }
 
     public function traer_aleaciones($id_cliente)
     {
         $aleaciones =DB::table('listas_aleaciones')
         ->where('listas_aleaciones.id_cliente','=',$id_cliente)
+        ->where('listas_aleaciones.estado','=','ACTIVO')
         ->get();
 
         $cliente =DB::table('listas_clientes')
@@ -130,4 +160,23 @@ class ListasAleacionesController extends Controller
         ->first();
         return response()->json(['cliente'=>$cliente,'aleaciones'=>$aleaciones]);
     }
+
+    public function validar_aleacion($id_cliente)
+    {
+
+
+        $tipo =DB::table('listas_aleaciones')
+        ->where('listas_aleaciones.id','=',$id_cliente)
+        ->where('listas_aleaciones.estado','=','ACTIVO')
+        ->first()->tipo;
+
+        $aleaciones =DB::table('listas_calidad')
+        ->where('listas_calidad.tipo','=',$tipo)
+        ->where('listas_calidad.estado','=','ACTIVO')
+        ->get();
+
+
+        return response()->json(['aleaciones'=>$aleaciones]);
+    }
+
 }

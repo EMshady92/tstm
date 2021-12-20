@@ -146,4 +146,35 @@ class ListasCalidadController extends Controller
     {
         //
     }
+
+    public function guardar_compuestos(Request $request,$id_aleacion)
+    {
+
+        $tipo =DB::table('listas_aleaciones')
+        ->where('listas_aleaciones.id','=',$id_aleacion)
+        ->where('listas_aleaciones.estado','=','ACTIVO')
+        ->first()->tipo;
+
+        $data = $request->get('compuestos');
+        $user=Auth::user();
+        foreach ($data as $_aux) {
+            $elements = explode(",", $_aux);
+            for ($x = 0; $x < count($elements); $x++) {
+                $lista = new ListasCalidadModel;
+                $lista->nombre_composicion = $elements[$x];
+                $lista->tipo =  $tipo;
+                $lista->captura = $user->name . " " . $user->apellido_p . " " . $user->apellido_m;
+                $lista->estado="ACTIVO";
+                $lista->save();
+
+                //DB::select('CALL InsertarMovimiento ("' . $user->id . '","create","recurso_promoventes","' . $promoventes->id . '","' . base64_encode(json_encode($promoventes)) . '"," ","El usuario ha creado una nueva relación de la promoventes con el recurso.")');
+            }
+        }
+
+        $listas_calidad = DB::table('listas_calidad')
+        ->where('listas_calidad.tipo','=',$lista->tipo)
+        ->get();
+
+        return $listas_calidad;
+    }
 }

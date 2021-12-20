@@ -17,7 +17,9 @@ class ListasCalidad extends Migration
             $table->id();
             $table->integer('id_tipo')->nullable()->unsigned();
             $table->string('tipo');
-            $table->string('nombre');
+            $table->string('nombre_composicion');
+            $table->string('rango_1');
+            $table->string('rango_2');
             $table->string('captura');
             $table->string('estado');
             $table->timestamps();

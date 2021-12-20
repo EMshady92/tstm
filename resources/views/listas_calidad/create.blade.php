@@ -5,6 +5,7 @@
 @include('listas_calidad.modal_editar_cliente')
 @include('listas_calidad.modal_nueva_aleacion')
 @include('listas_calidad.modal_editar_aleacion')
+@include('listas_calidad.modal_compuestos_calidad')
 <div class="container-fluid">
 
     <!-- start page title -->
@@ -36,23 +37,32 @@
 
 
 
+                        <div class="widget p-md col-md-12" style="align-content: center;">
 
-
-
-                            <div class="form-group">
-                                <label for="tipo">Administrar listas desplegables<span class="text-danger">*</span></label><br>
-                                <select class="form-control" onchange="mostrar_opciones_listas_calidad(this.value);" name="tipo" id="tipo" required
-                                    data-toggle="">
-                                    <option selected>Seleccione una opción</option>
-                                    <option value="ALEACIONES">ALEACIONES</option>
-                                    <option value="CLIENTE">CLIENTE</option>
-                                    <option value="ELEMENTOS">ELEMENTOS</option>
-                                </select>
-
+                            <div style=";margin: 0px;">
+                                <div class="row justify-content-center" style="padding:0;margin-top: 1em;">
+                                    <div class="col-md-12  input-group" style="padding:2em; color: black;">
+                                        <h4>Administrar listas desplegables</h4>
+                                        <p>Seleccione el tipo de lista</p>
+                                        <div class="form-group col-md-12">
+                                                <br>
+                                                <select class="form-control" onchange="mostrar_opciones_listas_calidad(this.value);" name="tipo" id="tipo" required
+                                                data-toggle="">
+                                                <option selected>Seleccione una opción</option>
+                                                <option value="ALEACIONES">ALEACIONES</option>
+                                                <option value="CLIENTE">CLIENTE</option>
+                                                <option value="ELEMENTOS">ELEMENTOS</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
 
+
+                        {{-- elementos forms --}}
                     <div id="display_clientes" style="display: none;">
-
+                            {{-- formualrio para elementos --}}
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="widget p-md" style="align-content: center;">
@@ -64,7 +74,7 @@
                                                 <p>Seleccione el tipo de lista</p>
                                                 <div class="form-group col-md-12">
                                                         <br>
-                                                        <select id="lista" class="form-control" onchange="();">
+                                                        <select id="lista"  class="form-control" onchange="muestra_aleaciones(this.value)">
                                                             <option selected value="">Seleccione una opción...</option>
                                                             @foreach ($listas_cliente as $cliente)
                                                             <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
@@ -86,6 +96,72 @@
 
                     </div>
 
+                    <div id="display_elementos_lista" style="display: none;">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="widget p-md" style="align-content: center;">
+
+                                <div style=";margin: 0px;">
+                                    <div class="row justify-content-center" style="padding:0;margin-top: 1em;">
+                                        <div class="col-md-12  input-group" style="padding:2em; color: black;">
+                                            <h4>Aleaciones</h4>
+
+                                            <div class="form-group col-md-12">
+                                                    <br>
+                                                    <select id="elementos_aleaciones" onchange="validar_aleacion(this.value);" class="form-control">
+                                                        <option selected value="">Seleccione una opción...</option>
+
+                                                    </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-12" style="margin-bottom:24px;" id="resultado">
+
+                        </div>
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="widget p-md" id="display_nueva_lista_calidad" style="display:none;">
+                    <div style="width: 100%;">
+
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1 col-sm-12 col-12 align-self-start table-responsive" style="color: black;font-size:14px;">
+                                <div class="row">
+                                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                        <h4></h4>
+
+                                    </div>
+                                </div>
+                                <p class="">No se han encontrado compuestos de esta aleación</p>
+
+                                            <div class="form-group col-md-3">
+                                                <br>
+                                                <button class="btn btn-info mt-3"  type="button" data-toggle="modal" data-target="#modal_compuestos_calidad"
+                                                data-dismiss="modal" style="background:#001789;">Generar compuestos</button>
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <br>
+
+                                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- tabla --}}
+
+                {{-- tabla --}}
+
+                     {{-- elementos forms --}}
                     <div id="display_elementos" style="display: none;">
                         <div class="col-md-10 col-md-offset-1 col-sm-12 col-12 align-self-start table-responsive" style="color: black;font-size:14px;">
                             <div class="row">
@@ -209,14 +285,12 @@
                                                     Editar
                                                 </button>
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
-                                                <button type="button" class="btn btn-danger mt-3" onclick="eliminar_cliente();">Eliminar</button>
+                                                <button type="button" class="btn btn-danger mt-3" onclick="eliminar_aleacion();">Eliminar</button>
 
 
                                             </div>
-
-                            </div>
-
-                </div>
+                                        </div>
+                                    </div>
 
 
 

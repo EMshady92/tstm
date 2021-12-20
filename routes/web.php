@@ -48,4 +48,6 @@ Route::resource('listas_cliente', App\Http\Controllers\ListasClientesController:
 Route::resource('listas_aleaciones', App\Http\Controllers\ListasAleacionesController::class);
 Route::get('traer_aleaciones/{id}',[App\Http\Controllers\ListasAleacionesController::class, 'traer_aleaciones']);
 Route::get('guardar_nueva_aleacion/{nombre}/{id_cliente}',[App\Http\Controllers\ListasAleacionesController::class, 'guardar_nueva_aleacion']);
-
+Route::get('editar_aleacion/{nombre}/{id}',[App\Http\Controllers\ListasAleacionesController::class, 'editar_aleacion']);
+Route::get('validar_aleacion/{id}',[App\Http\Controllers\ListasAleacionesController::class, 'validar_aleacion']);
+Route::post('guardar_compuestos/{id}',[App\Http\Controllers\ListasCalidadController::class, 'guardar_compuestos'])->name('guardar_compuestos');
