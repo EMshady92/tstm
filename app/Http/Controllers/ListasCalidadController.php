@@ -1,0 +1,149 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\ListasCalidadModel;
+use App\Models\ClientesModel;
+use App\Models\ListasAleacionesModel;
+use DB;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+
+class ListasCalidadController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+
+        $listas = DB::table('listas_calidad')->get();
+
+        return view('listas_calidad.index', ['listas' => $listas]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $listas = DB::table('listas_calidad')->get();
+        $listas_cliente = DB::table('listas_clientes')
+        ->where('listas_clientes.estado','=','ACTIVO')
+        ->get();
+        $listas_aleaciones = DB::table('listas_aleaciones')
+        ->where('listas_aleaciones.estado','=','ACTIVO')
+        ->get();
+
+
+        return view('listas_calidad.create', ['listas' => $listas,'listas_cliente'=>$listas_cliente,'listas_aleaciones'=>$listas_aleaciones]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    public function guardar_nuevo_cliente($nombre){
+
+
+            $user=Auth::user();
+            $cliente=new ClientesModel;
+            $cliente->nombre=$nombre;
+            $cliente->estado="ACTIVO";
+            $cliente->captura="Nombre: ". $user->nombre ." Usuario:". $user->usuario ." Email:" .$user->email;
+            $cliente->save();
+           // DB::select('CALL InsertarMovimiento ("'.$user->id.'","create","tipos_promociones","'.$promocion->id.'","'.base64_encode(json_encode($promocion)).'"," ","El usuario ha creado un nuevo tipo de promoción")');
+
+           return response()->json(['cliente'=>$cliente]);
+
+
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    public function editar_cliente($nombre,$id){
+
+
+        $user=Auth::user();
+        $cliente=ClientesModel::findOrFail($id);
+        $cliente->nombre=$nombre;
+        $cliente->estado="ACTIVO";
+        $cliente->captura="Nombre: ". $user->nombre ." Usuario:". $user->usuario ." Email:" .$user->email;
+        $cliente->update();
+       // DB::select('CALL InsertarMovimiento ("'.$user->id.'","create","tipos_promociones","'.$promocion->id.'","'.base64_encode(json_encode($promocion)).'"," ","El usuario ha creado un nuevo tipo de promoción")');
+
+       if ($cliente->update()){
+           $clientes = DB::table('listas_clientes')
+           ->where('listas_clientes.estado','=','ACTIVO')
+           ->orderBy('created_at','DESC')->get();
+           return response()->json(['cliente'=>$cliente,'clientes'=>$clientes]);
+       }else{
+           return false;
+       }
+
+
+
+}
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}

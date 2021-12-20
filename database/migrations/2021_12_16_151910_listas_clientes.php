@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Contenedores extends Migration
+class ListasClientes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class Contenedores extends Migration
      */
     public function up()
     {
-        Schema::create('contenedores', function (Blueprint $table) {
+        Schema::create('listas_clientes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('peso');
             $table->string('captura');
             $table->string('estado');
             $table->timestamps();
@@ -30,6 +29,6 @@ class Contenedores extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contenedores');
+        Schema::dropIfExists('listas_clientes');
     }
 }

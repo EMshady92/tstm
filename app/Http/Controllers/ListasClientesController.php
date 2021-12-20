@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ListasModel;
+use App\Models\ClientesModel;
 use DB;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
-class ListasController extends Controller
-{
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
+class ListasClientesController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +20,7 @@ class ListasController extends Controller
      */
     public function index()
     {
-       $listas = DB::table('listas')->get();
-
-       return view('listas.index', ['listas' => $listas]);
+        //
     }
 
     /**
@@ -35,7 +30,7 @@ class ListasController extends Controller
      */
     public function create()
     {
-        return view('listas.create');
+        //
     }
 
     /**
@@ -46,15 +41,7 @@ class ListasController extends Controller
      */
     public function store(Request $request)
     {
-        //$user=Auth::user();
-        $lista=new ListasModel;
-        $lista->tipo=$request->get('tipo');
-        $lista->nombre=$request->get('nombre');
-        $lista->estado="ACTIVO";
-        $lista->save();
-       // DB::select('CALL InsertarMovimiento ("'.$user->id.'","create","tipos_promociones","'.$promocion->id.'","'.base64_encode(json_encode($promocion)).'"," ","El usuario ha creado un nuevo tipo de promoción")');
-
-        return Redirect::to('/listas');
+        //
     }
 
     /**
@@ -76,8 +63,7 @@ class ListasController extends Controller
      */
     public function edit($id)
     {
-        $listas=ListasModel::findOrFail($id);
-        return view("listas.edit",["listas"=>$listas]);
+        //
     }
 
     /**
@@ -89,13 +75,7 @@ class ListasController extends Controller
      */
     public function update(Request $request, $id)
     {
-      //  $user=Auth::user();
-        $lista=ListasModel::findOrFail($id);
-        $lista->tipo=$request->get('tipo');
-        $lista->nombre=$request->get('nombre');
-        $lista->estado="ACTIVO";
-        $lista->update();
-        return Redirect::to('/listas');
+        //
     }
 
     /**
@@ -107,12 +87,11 @@ class ListasController extends Controller
     public function destroy($id)
     {
 
-           /*  $user=Auth::user(); */
-            $lista=ListasModel::findOrFail($id);
-           // $lista->captura=$user->name;
-            $lista->estado="INACTIVO";
-            $lista->update();
-            return $lista;
-
+            $user=Auth::user();
+          $lista=ClientesModel::findOrFail($id);
+          $lista->captura="Nombre: ". $user->nombre ." Usuario:". $user->usuario ." Email:" .$user->email;;
+           $lista->estado="INACTIVO";
+           $lista->update();
+           return $lista;
     }
 }

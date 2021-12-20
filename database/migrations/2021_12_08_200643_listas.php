@@ -15,9 +15,9 @@ class Listas extends Migration
     {
         Schema::create('listas', function (Blueprint $table) {
             $table->id();
-            $table->string('TIPO');
-            $table->string('NOMBRE');
-            $table->string('ESTADO');
+            $table->string('tipo');
+            $table->string('nombre');
+            $table->string('estado');
             $table->timestamps();
         });
     }

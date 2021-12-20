@@ -202,10 +202,10 @@
             <li><a><span class="menu-text">Usuarios Kioskos</span></a></li>
             <li><a><span class="menu-text">Catálogos</span></a></li>
             <li><a><span class="menu-text">Materia prima</span></a></li>
-            <li><a><span class="menu-text">Ventas</span></a></li>
-            <li><a><span class="menu-text">Sal / Cal</span></a></li>
+            <li><a href="/listas_ventas"><span class="menu-text">Ventas</span></a></li>
+            <li><a href="/listas_cal_sal" ><span class="menu-text">Sal / Cal</span></a></li>
             <li><a><span class="menu-text">Bypro</span></a></li>
-            <li><a><span class="menu-text">Calidad</span></a></li>
+            <li><a href="/listas_cali/create"><span class="menu-text">Calidad</span></a></li>
             <li><a><span class="menu-text">Update inventario</span></a></li>
             <li><a><span class="menu-text">Materia prima</span></a></li>
             <li><a><span class="menu-text">Reporte global</span></a></li>
