@@ -93,17 +93,20 @@ function mostrar_opciones_listas_calidad(value) {
         document.getElementById('display_aleacion_crud').style.display = "none"
         document.getElementById('display_elementos_lista').style.display = "none"
         document.getElementById('display_nueva_lista_calidad').style.display = "none"
+        document.getElementById('tabla_composiciones').style.display = "none";
     } else if(value == "ELEMENTOS"){
         document.getElementById('display_clientes').style.display = "block"
         document.getElementById('display_elementos').style.display = "none"
         document.getElementById('display_aleaciones').style.display = "none"
         document.getElementById('display_aleacion_crud').style.display = "none"
+        document.getElementById('tabla_composiciones').style.display = "none";
     }else if(value == "ALEACIONES"){
         document.getElementById('display_aleaciones').style.display = "block"
         document.getElementById('display_clientes').style.display = "none"
         document.getElementById('display_elementos').style.display = "none"
         document.getElementById('display_elementos_lista').style.display = "none"
         document.getElementById('display_nueva_lista_calidad').style.display = "none"
+        document.getElementById('tabla_composiciones').style.display = "none";
     }
 
 
@@ -135,7 +138,7 @@ function muestra_aleaciones(value) {
 
 }
 
-function muestra_aleaciones(value) {
+function muestra_aleaciones_elementos(value) {
 
     $.ajax({
         type: "get",
@@ -154,6 +157,8 @@ function muestra_aleaciones(value) {
             });
             document.getElementById('display_elementos_lista').style.display = "block"
             document.getElementById('title').innerHTML = data.cliente.nombre;
+            document.getElementById('tabla_composiciones').style.display = "none";
+            document.getElementById('display_nueva_lista_calidad').style.display = "none"
 
         }
     });
@@ -362,11 +367,27 @@ function validar_aleacion(value){
         url: "/validar_aleacion/"+value,
         success: function (data) {
 
-            if(data.aleaciones.lenght > 0){
-                document.getElementById('display_nueva_lista_calidad').style.display = "none"
+            if(data.aleaciones.length > 0){
+                document.getElementById('display_nueva_lista_calidad').style.display = "none";
+
+                var arreglo = data.aleaciones;
+
+                    $("#tbody td").remove();
+                //generar tabla de compuestos
+                    for(var x = 0; x < arreglo.length; x++){
+                        var todo = '<tr>';
+                        todo+='<td>'+arreglo[x].nombre_composicion+'</td>';
+                        todo+='<td><input id="'+arreglo[x].id+'" type=number onchange="cambia_rango_1(this.value,this.id)" value = "'+arreglo[x].rango_1+'"></td>';
+                        todo+='<td><input type=number id="'+arreglo[x].id+'" onchange="cambia_rango_2(this.value,this.id)" value = "'+arreglo[x].rango_2+'"></td>';
+                        todo+='<td><button type="button" id="'+arreglo[x].id+'" onclick=eliminar_compuesto(this.id); class="btn btn-danger mt-3">Eliminar</button></td></tr>';
+                        console.log(todo);
+                        $('#tbody').append(todo);
+                    }
+                document.getElementById('tabla_composiciones').style.display = "block";
 
             }else{
                 document.getElementById('display_nueva_lista_calidad').style.display = "block"
+                document.getElementById('tabla_composiciones').style.display = "none";
                // let inputValue1 = document.querySelector("#aleacion_title").value;
             }
            /*  document.getElementById('display_elementos_lista').style.display = "block"
@@ -495,19 +516,116 @@ $.ajax({
 
     //data: dataString,
     success: function (data) {
+        var arreglo = data.listas_calidad;
+        console.log(arreglo.length);
+        $("#tbody td").remove();
+     //generar tabla de compuestos
+        for(var x = 0; x < arreglo.length; x++){
+            var todo = '<tr>';
+            todo+='<td>'+arreglo[x].nombre_composicion+'</td>';
+            todo+='<td><input id="'+arreglo[x].id+'" type=number onchange="cambia_rango_1(this.value,this.id)" value = "'+arreglo[x].rango_1+'"></td>';
+            todo+='<td><input type=number id="'+arreglo[x].id+'" onchange="cambia_rango_2(this.value,this.id)" value = "'+arreglo[x].rango_2+'"></td>';
+            todo+='<td><button type="button" id="'+arreglo[x].id+'" onclick=eliminar_compuesto(this.id); class="btn btn-danger mt-3">Eliminar</button></td></tr>';
+            console.log(todo);
+            $('#tbody').append(todo);
+        }
 
-      console.log(data.listas_calidad);
 
+         $("#modal_compuestos_calidad .close").click();
+         $('.modal_compuestos_calidad.in').modal('hide');
+         document.getElementById('display_nueva_lista_calidad').style.display = "none"
+         document.getElementById('tabla_composiciones').style.display = "block"
 
-
-      /*   $("#modal_editar_aleacion .close").click();
-        $('.modal_editar_aleacion.in').modal('hide'); */
 
 
     }
 
 });
 
+}
+
+function cambia_rango_1(value,id){
+    $.ajax({
+        type: "get",
+        method: 'get',
+        url: "/cambia_rango_1/"+value+"/"+id,
+        success: function (data) {
+
+        },
+        error : function(data) {
+
+        },
+    });
+    console.log(value);
+    console.log(id);
+}
+
+function cambia_rango_2(value,id){
+    $.ajax({
+        type: "get",
+        method: 'get',
+        url: "/cambia_rango_2/"+value+"/"+id,
+        success: function (data) {
+
+
+
+
+        },
+        error : function(data) {
+
+        },
+    });
+    console.log(value);
+    console.log(id);
+}
+
+function eliminar_compuesto(id){
+    Swal.fire({
+        title: 'Estás seguro?',
+        text: "Se inactivará el registro!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, inactivar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // var route = ruta_global + "/" + aux + "/" + id + "";
+            var token = $("#token").val();
+            $.ajax({
+                url: "/inactiva_compuesto/"+id,
+                type: 'GET',
+                method: 'get',
+                success: function (data) {
+                    Swal.fire(
+                        'Inactivado!',
+                        'El registro se ha inactivado.',
+                        'success'
+                    )
+                    $("#tbody td").remove();
+                    var arreglo = data.listas_calidad;
+                    console.log(arreglo.length);
+                 //generar tabla de compuestos
+                    for(var x = 0; x < arreglo.length; x++){
+                        var todo = '<tr>';
+                        todo+='<td>'+arreglo[x].nombre_composicion+'</td>';
+                        todo+='<td><input id="'+arreglo[x].id+'" type=number onchange="cambia_rango_1(this.value,this.id)" value = "'+arreglo[x].rango_1+'"></td>';
+                        todo+='<td><input type=number id="'+arreglo[x].id+'" onchange="cambia_rango_2(this.value,this.id)" value = "'+arreglo[x].rango_2+'"></td>';
+                        todo+='<td><button type="button" id="'+arreglo[x].id+'" onclick=eliminar_compuesto(this.id); class="btn btn-danger mt-3">Eliminar</button></td></tr>';
+                        console.log(todo);
+                        $('#tbody').append(todo);
+                    }
+
+                }
+            });
+
+            //setTimeout(function () { location.reload() }, 1000);
+
+            //location.reload();
+            //document.getElementById('display_nueva_lista_calidad').style.display = "none"
+            document.getElementById('tabla_composiciones').style.display = "block"
+        }
+    })
 }
 //////////////listas calidad
 

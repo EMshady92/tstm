@@ -74,7 +74,7 @@
                                                 <p>Seleccione el tipo de lista</p>
                                                 <div class="form-group col-md-12">
                                                         <br>
-                                                        <select id="lista"  class="form-control" onchange="muestra_aleaciones(this.value)">
+                                                        <select id="lista"  class="form-control" onchange="muestra_aleaciones_elementos(this.value)">
                                                             <option selected value="">Seleccione una opción...</option>
                                                             @foreach ($listas_cliente as $cliente)
                                                             <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
@@ -96,7 +96,7 @@
 
                     </div>
 
-                    <div id="display_elementos_lista" style="display: none;">
+                <div id="display_elementos_lista" style="display: none;">
 
                     <div class="row">
                         <div class="col-md-12">
@@ -118,12 +118,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12 col-12" style="margin-bottom:24px;" id="resultado">
-
-                        </div>
-                        <div class="col-md-12">
-
                         </div>
                     </div>
 
@@ -159,11 +153,45 @@
 
                 {{-- tabla --}}
 
+        <div class="col-md-12" id="tabla_composiciones" style="display:none;">
+            <div class="widget p-md" style="align-content: center;">
+                <div style="width: 100%;margin: 0px;">
+
+                    <div class="row justify-content-center" style="padding:3em;" id="datos_tabla">
+                        <div class="col-md-10 col-md-offset-1 col-sm-12 col-12 align-self-start table-responsive" style="color: black;font-size:14px;" id="table_users">
+                            <table data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%" id="LOL" style="font-family:Helvetica Neue, Helvetica,Arial,sans-serif;">
+                                <thead >
+                                    <tr>
+                                    <th>ELEMENTO</th>
+                                    <th>MINIMO</th>
+                                    <th>MAXIMO</th>
+                                    <th>ELIMINAR</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody">
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
                 {{-- tabla --}}
 
                      {{-- elementos forms --}}
-                    <div id="display_elementos" style="display: none;">
-                        <div class="col-md-10 col-md-offset-1 col-sm-12 col-12 align-self-start table-responsive" style="color: black;font-size:14px;">
+                    <div id="display_elementos" class="widget p-md" style="display: none;">
+                        <div class="col-md-10 col-md-offset-1 widget p-md col-sm-12 col-12 align-self-start table-responsive" style="color: black;font-size:14px;">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                                     <h4>Cliente</h4>
@@ -236,12 +264,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12 col-sm-12 col-12" style="margin-bottom:24px;" id="resultado">
-
-                                </div>
-                                <div class="col-md-12">
-
                                 </div>
                             </div>
 

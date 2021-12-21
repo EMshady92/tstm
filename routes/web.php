@@ -51,3 +51,6 @@ Route::get('guardar_nueva_aleacion/{nombre}/{id_cliente}',[App\Http\Controllers\
 Route::get('editar_aleacion/{nombre}/{id}',[App\Http\Controllers\ListasAleacionesController::class, 'editar_aleacion']);
 Route::get('validar_aleacion/{id}',[App\Http\Controllers\ListasAleacionesController::class, 'validar_aleacion']);
 Route::post('guardar_compuestos/{id}',[App\Http\Controllers\ListasCalidadController::class, 'guardar_compuestos'])->name('guardar_compuestos');
+Route::get('cambia_rango_1/{value}/{id}',[App\Http\Controllers\ListasCalidadController::class, 'cambia_rango_1']);
+Route::get('cambia_rango_2/{value}/{id}',[App\Http\Controllers\ListasCalidadController::class, 'cambia_rango_2']);
+Route::get('inactiva_compuesto/{id}',[App\Http\Controllers\ListasCalidadController::class, 'inactiva_compuesto']);

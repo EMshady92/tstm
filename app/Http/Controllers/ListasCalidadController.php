@@ -163,6 +163,8 @@ class ListasCalidadController extends Controller
                 $lista = new ListasCalidadModel;
                 $lista->nombre_composicion = $elements[$x];
                 $lista->tipo =  $tipo;
+                $lista->rango_1 = 0;
+                $lista->rango_2 = 0;
                 $lista->captura = $user->name . " " . $user->apellido_p . " " . $user->apellido_m;
                 $lista->estado="ACTIVO";
                 $lista->save();
@@ -172,9 +174,59 @@ class ListasCalidadController extends Controller
         }
 
         $listas_calidad = DB::table('listas_calidad')
-        ->where('listas_calidad.tipo','=',$lista->tipo)
+        ->where('listas_calidad.tipo','=',$tipo)
+        ->where('listas_calidad.estado','=','ACTIVO')
         ->get();
-
-        return $listas_calidad;
+        return response()->json(['listas_calidad'=>$listas_calidad]);
     }
+
+    function cambia_rango_1($value,$id){
+        $user=Auth::user();
+        $compuesto=ListasCalidadModel::findOrFail($id);
+        $compuesto->rango_1 = $value;
+        $compuesto->captura = $user->name . " " . $user->apellido_p . " " . $user->apellido_m;
+        $compuesto->estado="ACTIVO";
+        $compuesto->update();
+
+        if($compuesto->update()){
+            return $compuesto;
+        }else{
+            return false;
+        }
+    }
+
+    function cambia_rango_2($value,$id){
+        $user=Auth::user();
+        $compuesto=ListasCalidadModel::findOrFail($id);
+        $compuesto->rango_2 = $value;
+        $compuesto->captura = $user->name . " " . $user->apellido_p . " " . $user->apellido_m;
+        $compuesto->estado="ACTIVO";
+        $compuesto->update();
+
+        if($compuesto->update()){
+            return $compuesto;
+        }else{
+            return false;
+        }
+    }
+
+    public function inactiva_compuesto($id)
+    {
+           $user=Auth::user();
+          $compuesto=ListasCalidadModel::findOrFail($id);
+          $compuesto->captura= $user->name . " " . $user->apellido_p . " " . $user->apellido_m;
+          $compuesto->estado="INACTIVO";
+          $compuesto->update();
+
+          if($compuesto->update()){
+            $listas_calidad = DB::table('listas_calidad')
+            ->where('listas_calidad.tipo','=',$compuesto->tipo)
+            ->where('listas_calidad.estado','=','ACTIVO')
+            ->get();
+            return response()->json(['listas_calidad'=>$listas_calidad]);
+          }else{
+              return false;
+          }
+    }
+
 }
