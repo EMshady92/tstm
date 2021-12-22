@@ -54,3 +54,7 @@ Route::post('guardar_compuestos/{id}',[App\Http\Controllers\ListasCalidadControl
 Route::get('cambia_rango_1/{value}/{id}',[App\Http\Controllers\ListasCalidadController::class, 'cambia_rango_1']);
 Route::get('cambia_rango_2/{value}/{id}',[App\Http\Controllers\ListasCalidadController::class, 'cambia_rango_2']);
 Route::get('inactiva_compuesto/{id}',[App\Http\Controllers\ListasCalidadController::class, 'inactiva_compuesto']);
+
+//compras
+Route::resource('nueva_programacion', App\Http\Controllers\ProgramacionesController::class);
+Route::post('guardar_nueva_compra',[App\Http\Controllers\ProgramacionComprasController::class, 'nueva_compra'])->name('nueva_compra');

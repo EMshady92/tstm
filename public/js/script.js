@@ -604,7 +604,7 @@ function eliminar_compuesto(id){
                     )
                     $("#tbody td").remove();
                     var arreglo = data.listas_calidad;
-                    console.log(arreglo.length);
+
                  //generar tabla de compuestos
                     for(var x = 0; x < arreglo.length; x++){
                         var todo = '<tr>';
@@ -629,4 +629,43 @@ function eliminar_compuesto(id){
 }
 //////////////listas calidad
 
+/////////////Nueva programcion///////////////////////////////
+
+function mostrar_programacion(value) {
+
+    if (value == "COMPRA") {
+        document.getElementById('display_compras').style.display = "block";
+        document.getElementById('display_ventas').style.display = "none";
+
+    } else if(value == "VENTA"){
+        document.getElementById('display_compras').style.display = "none";
+        document.getElementById('display_ventas').style.display = "block";
+    }
+}
+
+function guardar_nueva_compra() {
+
+    var dataString = $('#formulario_compra').serialize(); // carga todos
+    var token = $("#_token").val();
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': token
+        },
+        type: "POST",
+        method: 'post',
+        url: "/guardar_nueva_compra",
+        data: dataString,
+        success: function (data) {
+
+            Swal.fire(
+                'Exito!',
+                'Se ha registrado el usuario: '+'aquiva'+' correctamente',
+                'success'
+            )
+        }
+
+    });
+    //setTimeout(function () { location.reload() }, 1000);
+
+}
 

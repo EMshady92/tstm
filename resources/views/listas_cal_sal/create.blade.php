@@ -38,7 +38,7 @@
 
 <hr>
 
-<form action="{{ route('listas_cal_sal.store') }}" id="formulario" method="POST">
+                    <form action="{{ route('listas_cal_sal.store') }}" id="formulario" method="POST">
                                 @csrf
 
 

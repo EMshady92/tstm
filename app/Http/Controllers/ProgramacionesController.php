@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ClientesModel;
+use App\Models\ListasAleacionesModel;
 use DB;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
-
-class ListasClientesController extends Controller
+class ProgramacionesController extends Controller
 {
     public function __construct()
     {
@@ -24,7 +23,21 @@ class ListasClientesController extends Controller
      */
     public function index()
     {
-        //
+
+        $materiales = DB::table('listas')
+        ->where('listas.tipo','=',2)
+        ->get();
+
+        $proveedores = DB::table('listas')
+        ->where('listas.tipo','=',1)
+        ->get();
+
+        setlocale(LC_TIME, "spanish"); //
+        $month = date('m');
+        $year = date("Y");
+
+        //return UsersModel::get();
+        return view('compras.index',["materiales"=>$materiales,"proveedores"=>$proveedores,'month'=>$month,'year'=>$year]);
     }
 
     /**
@@ -90,12 +103,6 @@ class ListasClientesController extends Controller
      */
     public function destroy($id)
     {
-
-            $user=Auth::user();
-          $lista=ClientesModel::findOrFail($id);
-          $lista->captura="Nombre: ". $user->nombre ." Usuario:". $user->usuario ." Email:" .$user->email;;
-           $lista->estado="INACTIVO";
-           $lista->update();
-           return $lista;
+        //
     }
 }
