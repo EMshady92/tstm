@@ -48,12 +48,26 @@
                                             <div class="row">
                                                 <div class="col-md-12 widget p-md">
 
+                                                    <div class="form-group col-md-6">
+                                                        <label for="tipo_subida_ventas">TIPO DE REGISTRO<span class="text-danger">*</span></label><br>
+                                                        <select class="form-control" required name="tipo_de_registro_venta" onchange="tipo_registro_compra(this.value);" id="tipo_de_registro_venta" required
+                                                            data-toggle="">
+                                                            <option selected>Seleccione una opción</option>
+                                                            <option value="MANUAL">MANUAL</option>
+                                                            <option value="LAYOUT">LAYOUT</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
 
 
                                                      {{-- formulario --}}
 
                                                       {{-- tarjeta --}}
-                                                      <div class="form-row">
+                                                      <div style="display: none; -webkit-box-shadow: 2px 2px 5px #999; -moz-box-shadow: 2px 2px 5px #999;" id="formulario_manual_compra"  name="formulario_manual_compra" class="form-row widget p-md">
 
                                                         <div class="form-group col-md-6">
                                                           <label for="po">#PO</label>
@@ -126,8 +140,7 @@
                                                             <textarea type="text" class="form-control"  name="observaciones" id="observaciones"></textarea>
                                                           </div>
 
-                                                      </div>
-                                                      {{-- tarjeta --}}
+                                                          {{-- tarjeta --}}
 
 
 
@@ -137,25 +150,70 @@
 
 
 
-                                                        <div class="form-group text-left mb-0">
-                                                            <button class="btn btn-primary waves-effect waves-light mr-1" onclick="guardar_nueva_compra();" id="submit"  type="button">
+                                                          <div class="form-group text-left mb-0">
+                                                              <button class="btn btn-primary waves-effect waves-light mr-1" onclick="guardar_nueva_compra();" id="submit"  type="button">
                                                                 Guardar
                                                             </button>
                                                             <button type="reset" onclick="location.href='/nueva_programacion'" class="btn btn-secondary waves-effect">
                                                                 Cancelar
                                                             </button>
                                                         </div>
+                                                    </div>
+
                                                      {{-- formulario --}}
+
                                                     </div>
 
                                                 </div>
                                             </form>
+
+                                            <div style="display: none; -webkit-box-shadow: 2px 2px 5px #999; -moz-box-shadow: 2px 2px 5px #999;" id="formulario_layout_compra"  name="formulario_layout_compra" class="form-row widget p-md">
+                                                <form  action="{{route('compras.store')}}" id="formulario_compra_excel" method="POST" name="formulario_compra_excel" files="true" enctype="multipart/form-data" accept-charset="UTF-8">
+                                                    @csrf
+                                                    <div style="margin-top:10px;" class="form-group col-md-6">
+                                                    <div style="padding:5px; border-style: solid;" class="custom-file">
+                                                        <input  type="file" class="file" id="file_compra" name="file_compra">
+
+                                                    </div>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+
+                                                {{-- tarjeta --}}
+
+
+
+
+
+
+
+
+
+                                                    <div class="form-group text-left mb-0">
+                                                        <button class="btn btn-primary waves-effect waves-light mr-1"  id="submit"  type="submit">
+                                                            Guardar
+                                                        </button>
+                                                        <button type="reset" onclick="location.href='/nueva_programacion'" class="btn btn-secondary waves-effect">
+                                                            Cancelar
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            </div>
+                                             {{-- form layout --}}
+                                            </div>
+
+                                        </div>
+                                    </form>
                                 </div>
                                    {{-- formualrio para compras --}}
 
                                     {{-- formualrio para ventas --}}
                                    <div id="display_ventas" style="display: none;">
-                                    <form  id="formulario_compra" method="POST">
+                                    <form  id="formulario_venta" method="POST">
                                         @csrf
                                             <div class="row">
                                                 <div class="col-md-12 widget p-md">
@@ -163,9 +221,24 @@
 
 
                                                      {{-- formulario --}}
+                                                     <div class="form-group col-md-6">
+                                                        <label for="tipo_subida_ventas">TIPO DE REGISTRO<span class="text-danger">*</span></label><br>
+                                                        <select class="form-control" required name="tipo_de_registro_venta" onchange="tipo_registro_venta(this.value);" id="tipo_de_registro_venta" required
+                                                            data-toggle="">
+                                                            <option selected>Seleccione una opción</option>
+                                                            <option value="MANUAL">MANUAL</option>
+                                                            <option value="LAYOUT">LAYOUT</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+
 
                                                       {{-- tarjeta --}}
-                                                      <div class="form-row">
+                                                      <div style="display: none; -webkit-box-shadow: 2px 2px 5px #999; -moz-box-shadow: 2px 2px 5px #999;" id="formulario_manual_venta"  name="formulario_manual_venta" class="form-row widget p-md">
 
                                                         <div class="form-group col-md-6">
                                                           <label for="orden">#ORDEN COMPRA</label>
@@ -187,8 +260,8 @@
                                                             <select class="form-control" name="cliente" id="cliente" required
                                                                 data-toggle="">
                                                                 <option selected>Seleccione una opción</option>
-                                                                @foreach ($proveedores as $proveedor)
-                                                                <option value="{{$proveedor->nombre}}">{{$proveedor->nombre}}</option>
+                                                                @foreach ($clientes as $cliente)
+                                                                <option value="{{$cliente->nombre}}">{{$cliente->nombre}}</option>
                                                                 @endforeach
                                                             </select>
 
@@ -199,7 +272,7 @@
                                                             <select class="form-control" name="material" id="material" required
                                                                 data-toggle="">
                                                                 <option selected>Seleccione una opción</option>
-                                                                @foreach ($materiales as $material)
+                                                                @foreach ($materiales_venta as $material)
                                                                 <option value="{{$material->nombre}}">{{$material->nombre}}</option>
                                                                 @endforeach
                                                             </select>
@@ -218,7 +291,7 @@
 
                                                           <div class="form-group col-md-6">
                                                             <label for="p_list">PESO(Packet List)</label>
-                                                            <input type="date" required class="form-control"  name="p_list" id="p_list">
+                                                            <input type="text" required class="form-control"  name="p_list" id="p_list">
                                                           </div>
 
                                                           <div class="form-group col-md-6">
@@ -243,7 +316,7 @@
                                                             <textarea type="text" class="form-control"  name="observaciones" id="observaciones"></textarea>
                                                           </div>
 
-                                                      </div>
+
                                                       {{-- tarjeta --}}
 
 
@@ -255,18 +328,57 @@
 
 
                                                         <div class="form-group text-left mb-0">
-                                                            <button class="btn btn-primary waves-effect waves-light mr-1" onclick="guardar_nueva_compra();" id="submit"  type="button">
+                                                            <button class="btn btn-primary waves-effect waves-light mr-1" onclick="guardar_nueva_venta();" id="submit"  type="button">
                                                                 Guardar
                                                             </button>
                                                             <button type="reset" onclick="location.href='/nueva_programacion'" class="btn btn-secondary waves-effect">
                                                                 Cancelar
                                                             </button>
                                                         </div>
+                                                    </div>
                                                      {{-- formulario --}}
+
+
                                                     </div>
 
                                                 </div>
                                             </form>
+                                             {{-- formulario layout --}}
+                                             <div style="display: none; -webkit-box-shadow: 2px 2px 5px #999; -moz-box-shadow: 2px 2px 5px #999;" id="formulario_layout_venta"  name="formulario_layout_venta" class="form-row widget p-md">
+                                                <form  action="{{route('ventas.store')}}" id="formulario_venta_excel" method="POST" name="formulario_venta_excel" files="true" enctype="multipart/form-data" accept-charset="UTF-8">
+                                                    @csrf
+                                                    <div style="margin-top:10px;" class="form-group col-md-6">
+                                                    <div style="padding:5px; border-style: solid;" class="custom-file">
+                                                        <input  type="file" class="file" id="file_venta" name="file_venta">
+
+                                                    </div>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+
+                                                {{-- tarjeta --}}
+
+
+
+
+
+
+
+
+
+                                                    <div class="form-group text-left mb-0">
+                                                        <button class="btn btn-primary waves-effect waves-light mr-1"  id="submit"  type="submit">
+                                                            Guardar
+                                                        </button>
+                                                        <button type="reset" onclick="location.href='/nueva_programacion'" class="btn btn-secondary waves-effect">
+                                                            Cancelar
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                             {{-- formulario latout --}}
                                 </div>
                                      {{-- formualrio para ventas --}}
 

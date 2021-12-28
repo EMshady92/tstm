@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\ProgramacionVentasModel;
+use DB;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+use App\Imports\ImportVenta;
+use Maatwebsite\Excel\Facades\Excel;
 class ProgramacionVentasController extends Controller
 {
     /**
@@ -35,7 +41,40 @@ class ProgramacionVentasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file = $request->file('file_venta');
+        Excel::import(new ImportVenta, $file);
+        return Redirect::to('/nueva_programacion')->with('errors','Correcto');
+    }
+
+    public function nueva_venta(Request $request)
+    {
+        $user=Auth::user();
+        $venta=new ProgramacionVentasModel;
+        $venta->orden=$request->get('orden');
+        $venta->year=$request->get('year');
+        $venta->month=$request->get('month');
+        $venta->cliente=$request->get('cliente');
+        $venta->material=$request->get('material');
+        $venta->lote=$request->get('lote');
+        $venta->c_lotes=$request->get('c_lotes');
+        $venta->p_list=$request->get('p_list');
+        $venta->fecha_envio=$request->get('fecha_envio');
+        $venta->n_sellos=$request->get('n_sellos');
+        $venta->n_cajas=$request->get('n_cajas');
+        $venta->estatus=0;
+        $venta->bascula=0;
+        $venta->observaciones=$request->get('observaciones');
+        $venta->captura="Nombre: ". $user->nombre ." Usuario:". $user->usuario;
+        $venta->estado="ACTIVO";
+        $venta->save();
+        if( $venta->save()){
+            return response()->json(['venta'=>$venta]);
+        }else{
+            return false;
+        }
+       // DB::select('CALL InsertarMovimiento ("'.$user->id.'","create","tipos_promociones","'.$promocion->id.'","'.base64_encode(json_encode($promocion)).'"," ","El usuario ha creado un nuevo tipo de promoción")');
+
+
     }
 
     /**

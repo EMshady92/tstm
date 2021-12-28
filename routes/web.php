@@ -57,4 +57,12 @@ Route::get('inactiva_compuesto/{id}',[App\Http\Controllers\ListasCalidadControll
 
 //compras
 Route::resource('nueva_programacion', App\Http\Controllers\ProgramacionesController::class);
+Route::get('editar_programacion',[App\Http\Controllers\ProgramacionesController::class, 'editar_programacion']);
+Route::get('traer_compras_dates/{fecha}/{filtro}',[App\Http\Controllers\ProgramacionComprasController::class, 'traer_compras_dates']);
+Route::get('traer_datos_edit_compra/{id}',[App\Http\Controllers\ProgramacionComprasController::class, 'traer_datos_edit_compra']);
+Route::resource('compras', App\Http\Controllers\ProgramacionComprasController::class);
+Route::resource('ventas', App\Http\Controllers\ProgramacionVentasController::class);
 Route::post('guardar_nueva_compra',[App\Http\Controllers\ProgramacionComprasController::class, 'nueva_compra'])->name('nueva_compra');
+Route::post('guardar_nueva_venta',[App\Http\Controllers\ProgramacionVentasController::class, 'nueva_venta'])->name('nueva_venta');
+Route::post('guardar_nueva_compra_excel',[App\Http\Controllers\ProgramacionComprasController::class, 'guardar_nueva_compra_excel'])->name('guardar_nueva_compra_excel');
+Route::post('editar_compra',[App\Http\Controllers\ProgramacionComprasController::class, 'editar_compra'])->name('editar_compra');

@@ -659,7 +659,7 @@ function guardar_nueva_compra() {
 
             Swal.fire(
                 'Exito!',
-                'Se ha registrado el usuario: '+'aquiva'+' correctamente',
+                'Compra guardada con exito',
                 'success'
             )
         }
@@ -669,3 +669,184 @@ function guardar_nueva_compra() {
 
 }
 
+function guardar_nueva_venta() {
+
+    var dataString = $('#formulario_venta').serialize(); // carga todos
+    var token = $("#_token").val();
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': token
+        },
+        type: "POST",
+        method: 'post',
+        url: "/guardar_nueva_venta",
+        data: dataString,
+        success: function (data) {
+
+            Swal.fire(
+                'Exito!',
+                'Venta guardada con exito',
+                'success'
+            )
+        }
+
+    });
+    //setTimeout(function () { location.reload() }, 1000);
+
+}
+
+function tipo_registro_venta(value) {
+
+    if (value == "LAYOUT") {
+        document.getElementById('formulario_layout_venta').style.display = "block"
+        document.getElementById('formulario_manual_venta').style.display = "none"
+    } else if(value == "MANUAL"){
+        document.getElementById('formulario_layout_venta').style.display = "none"
+        document.getElementById('formulario_manual_venta').style.display = "block"
+
+    }
+
+}
+
+
+
+function tipo_registro_compra(value) {
+
+    if (value == "LAYOUT") {
+        document.getElementById('formulario_layout_compra').style.display = "block"
+        document.getElementById('formulario_manual_compra').style.display = "none"
+    } else if(value == "MANUAL"){
+        document.getElementById('formulario_layout_compra').style.display = "none"
+        document.getElementById('formulario_manual_compra').style.display = "block"
+
+    }
+
+}
+
+
+function guardar_nueva_compra_excel() {
+
+    var dataString = $('#formulario_compra').serialize(); // carga todos
+    var token = $("#_token").val();
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': token
+        },
+        type: "POST",
+        method: 'post',
+        url: "/guardar_nueva_compra_excel",
+        data: dataString,
+        success: function (data) {
+
+            Swal.fire(
+                'Exito!',
+                'Venta guardada con exito',
+                'success'
+            )
+        }
+
+    });
+    //setTimeout(function () { location.reload() }, 1000);
+
+}
+
+function submit(value){
+    var form = document.getElementById(value);
+    form.submit();
+   }
+
+/* EDITAR COMPRAS  */
+function traer_compras_dates(fecha){
+    var token = $("#token").val();
+    var filtro = $("#filtro").val();
+    console.log(fecha);
+    $.ajax({
+        type: "GET",
+        method: 'get',
+        url: "/traer_compras_dates/"+ fecha +"/"+ filtro,
+
+        //data: dataString,
+        success: function (data) {
+            var arreglo = data.compras;
+            console.log(arreglo.length);
+            $("#tbody td").remove();
+         //generar tabla de compuestos
+            for(var x = 0; x < arreglo.length; x++){
+                var todo = '<tr>';
+                todo+='<td>'+arreglo[x].po+'</td>';
+                todo+='<td>'+arreglo[x].supplier+'</td>';
+                todo+='<td>'+arreglo[x].material+'</td>';
+                todo+='<td>'+arreglo[x].lot+'</td>';
+                todo+='<td>'+arreglo[x].supplier_weight+'</td>';
+                todo+='<td>'+arreglo[x].reception_date+'</td>';
+                todo+='<td><button type="button" id="'+arreglo[x].id+'" onclick=eliminar_compuesto(this.id); class="btn btn-danger mt-3">Eliminar</button></td>';
+                todo+='<td><button type="button" id="'+arreglo[x].id+'_editar" onclick="datos_modal_edit(this.id)" data-toggle="modal" data-target="#modal_editar_compra" data-dismiss="modal" class="btn btn-success mt-3">Editar</button></td></tr>';
+
+                $('#tbody').append(todo);
+            }
+
+        }
+
+    });
+}
+
+function datos_modal_edit(id){
+    $.ajax({
+        type: "GET",
+        method: 'get',
+        url: "/traer_datos_edit_compra/"+ id,
+
+        //data: dataString,
+        success: function (data) {
+            console.log(data);
+            document.getElementById("id").value = data.compra.id;
+            document.getElementById("reception_date").value = data.compra.reception_date;
+            document.getElementById("po").value = data.compra.po;
+            document.getElementById("year").value = data.compra.year;
+            document.getElementById("month").value = data.compra.month;
+            document.getElementById("supplier").value = data.compra.supplier;
+            document.getElementById("material").value = data.compra.material;
+            document.getElementById("lot").value = data.compra.lot;
+            document.getElementById("supplier_weight").value = data.compra.supplier_weight;
+            document.getElementById("observaciones").value = data.compra.observaciones;
+            document.getElementById("importacion").value = data.compra.importacion;
+
+         //generar tabla de compuestos
+
+
+        }
+
+    });
+
+}
+
+function editar_compra() {
+    var dataString = $('#formulario_edit_compra').serialize(); // carga todos
+
+    var token = $("#_token").val();
+    console.log(token);
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': token
+        },
+        type: "POST",
+        method: 'post',
+        url: "/editar_compra",
+        data: dataString,
+        success: function (data) {
+
+            Swal.fire(
+                'Exito!',
+                'Se ha editado el registro',
+                'success'
+            )
+
+            $("#modal_editar_compra .close").click();
+            $('.modal_editar_compra.in').modal('hide');
+        }
+
+    });
+    setTimeout(function () { location.reload() }, 1000);
+
+}
+/* EDITAR COMPRAS */

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
-
+use Maatwebsite\Excel\Facades\Excel;
+use PHPExcel_Worksheet_Drawing;
 class ProgramacionesController extends Controller
 {
     public function __construct()
@@ -32,12 +33,48 @@ class ProgramacionesController extends Controller
         ->where('listas.tipo','=',1)
         ->get();
 
+        $clientes = DB::table('listas_clientes')
+        ->where('listas_clientes.estado','=','ACTIVO')
+        ->get();
+
+        $materiales_venta = DB::table('listas_aleaciones')
+        ->where('listas_aleaciones.estado','=','ACTIVO')
+        ->get();
+
         setlocale(LC_TIME, "spanish"); //
         $month = date('m');
         $year = date("Y");
 
         //return UsersModel::get();
-        return view('compras.index',["materiales"=>$materiales,"proveedores"=>$proveedores,'month'=>$month,'year'=>$year]);
+        return view('compras.index',["materiales"=>$materiales,"proveedores"=>$proveedores,'month'=>$month,'year'=>$year,'clientes'=>$clientes,'materiales_venta'=>$materiales_venta]);
+    }
+
+    public function editar_programacion()
+    {
+
+        $materiales = DB::table('listas')
+        ->where('listas.tipo','=',2)
+        ->get();
+
+        $proveedores = DB::table('listas')
+        ->where('listas.tipo','=',1)
+        ->get();
+
+        $clientes = DB::table('listas_clientes')
+        ->where('listas_clientes.estado','=','ACTIVO')
+        ->get();
+
+        $materiales_venta = DB::table('listas_aleaciones')
+        ->where('listas_aleaciones.estado','=','ACTIVO')
+        ->get();
+
+        setlocale(LC_TIME, "spanish"); //
+        $month = date('m');
+        $year = date("Y");
+        $date = date('Y-m-d');
+
+        //return UsersModel::get();
+        return view('compras.editar_programacion',["date"=>$date,"materiales"=>$materiales,"proveedores"=>$proveedores,'month'=>$month,'year'=>$year,'clientes'=>$clientes,'materiales_venta'=>$materiales_venta]);
     }
 
     /**
