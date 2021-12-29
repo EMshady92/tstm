@@ -62,7 +62,10 @@ Route::get('traer_compras_dates/{fecha}/{filtro}',[App\Http\Controllers\Programa
 Route::get('traer_datos_edit_compra/{id}',[App\Http\Controllers\ProgramacionComprasController::class, 'traer_datos_edit_compra']);
 Route::resource('compras', App\Http\Controllers\ProgramacionComprasController::class);
 Route::resource('ventas', App\Http\Controllers\ProgramacionVentasController::class);
+Route::get('traer_ventas_dates/{fecha}/{orden}',[App\Http\Controllers\ProgramacionVentasController::class, 'traer_ventas_dates']);
 Route::post('guardar_nueva_compra',[App\Http\Controllers\ProgramacionComprasController::class, 'nueva_compra'])->name('nueva_compra');
 Route::post('guardar_nueva_venta',[App\Http\Controllers\ProgramacionVentasController::class, 'nueva_venta'])->name('nueva_venta');
 Route::post('guardar_nueva_compra_excel',[App\Http\Controllers\ProgramacionComprasController::class, 'guardar_nueva_compra_excel'])->name('guardar_nueva_compra_excel');
 Route::post('editar_compra',[App\Http\Controllers\ProgramacionComprasController::class, 'editar_compra'])->name('editar_compra');
+Route::get('datos_modal_edit_venta/{id}',[App\Http\Controllers\ProgramacionVentasController::class, 'datos_modal_edit_venta']);
+Route::post('editar_venta',[App\Http\Controllers\ProgramacionVentasController::class, 'editar_venta'])->name('editar_venta');

@@ -750,11 +750,6 @@ function guardar_nueva_compra_excel() {
 
 }
 
-function submit(value){
-    var form = document.getElementById(value);
-    form.submit();
-   }
-
 /* EDITAR COMPRAS  */
 function traer_compras_dates(fecha){
     var token = $("#token").val();
@@ -847,6 +842,102 @@ function editar_compra() {
 
     });
     setTimeout(function () { location.reload() }, 1000);
+}
 
+function traer_ventas_dates(fecha){
+    //var token = $("#token").val();
+    var orden = $("#orden_venta").val();
+    console.log(fecha);
+    $.ajax({
+        type: "GET",
+        method: 'get',
+        url: "/traer_ventas_dates/"+ fecha +"/"+ orden,
+
+        //data: dataString,
+        success: function (data) {
+            var arreglo = data.ventas;
+            console.log(arreglo.length);
+            $("#tbody_venta td").remove();
+         //generar tabla de compuestos
+            for(var x = 0; x < arreglo.length; x++){
+                var todo = '<tr>';
+                todo+='<td>'+arreglo[x].orden+'</td>';
+                todo+='<td>'+arreglo[x].cliente+'</td>';
+                todo+='<td>'+arreglo[x].material+'</td>';
+                todo+='<td>'+arreglo[x].lote+'</td>';
+                todo+='<td>'+arreglo[x].c_lotes+'</td>';
+                todo+='<td>'+arreglo[x].p_list+'</td>';
+                todo+='<td>'+arreglo[x].n_sellos+'</td>';
+                todo+='<td>'+arreglo[x].n_cajas+'</td>';
+                todo+='<td><button type="button" id="'+arreglo[x].id+'" onclick=eliminar_venta(this.id); class="btn btn-danger mt-3">Eliminar</button></td>';
+                todo+='<td><button type="button" id="'+arreglo[x].id+'_editar" onclick="datos_modal_edit_venta(this.id)" data-toggle="modal" data-target="#modal_editar_venta" data-dismiss="modal" class="btn btn-success mt-3">Editar</button></td></tr>';
+
+                $('#tbody_venta').append(todo);
+            }
+
+        }
+
+    });
+}
+
+function datos_modal_edit_venta(id){
+    $.ajax({
+        type: "GET",
+        method: 'get',
+        url: "/datos_modal_edit_venta/"+ id,
+
+        //data: dataString,
+        success: function (data) {
+            console.log(data);
+            document.getElementById("id_venta").value = data.venta.id;
+            document.getElementById("orden").value = data.venta.orden;
+            document.getElementById("year_venta").value = data.venta.year;
+            document.getElementById("month_venta").value = data.venta.month;
+            document.getElementById("cliente").value = data.venta.cliente;
+            document.getElementById("material_venta").value = data.venta.material;
+            document.getElementById("lote").value = data.venta.lote;
+            document.getElementById("c_lotes").value = data.venta.c_lotes;
+            document.getElementById("p_list").value = data.venta.p_list;
+            document.getElementById("fecha_envio").value = data.venta.fecha_envio;
+            document.getElementById("n_sellos").value = data.venta.n_sellos;
+            document.getElementById("n_cajas").value = data.venta.n_cajas;
+            document.getElementById("observaciones_venta").value = data.venta.observaciones;
+
+         //generar tabla de compuestos
+
+
+        }
+
+    });
+
+}
+
+function editar_venta() {
+    var dataString = $('#formulario_edit_venta').serialize(); // carga todos
+
+    var token = $("#_token").val();
+    console.log(token);
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': token
+        },
+        type: "POST",
+        method: 'post',
+        url: "/editar_venta",
+        data: dataString,
+        success: function (data) {
+
+            Swal.fire(
+                'Exito!',
+                'Se ha editado el registro',
+                'success'
+            )
+
+            $("#modal_editar_venta .close").click();
+            $('.modal_editar_venta.in').modal('hide');
+        }
+
+    });
+   // setTimeout(function () { location.reload() }, 1000);
 }
 /* EDITAR COMPRAS */

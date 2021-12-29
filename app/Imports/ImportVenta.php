@@ -5,8 +5,8 @@ namespace App\Imports;
 use App\Models\ProgramacionVentasModel;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Auth;
-
-class ImportVenta implements ToModel
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+class ImportVenta implements ToModel,WithHeadingRow
 {
     /**
     * @param array $row
@@ -17,20 +17,20 @@ class ImportVenta implements ToModel
     {
         $user=Auth::user();
         return new ProgramacionVentasModel([
-            'orden' => $row[0],
-            'year' => $row[1],
-            'month' => $row[2],
-            'cliente' => $row[3],
-            'material' => $row[4],
-            'lote' => $row[5],
-            'c_lotes' => $row[6],
-            'p_list' => $row[7],
-            'fecha_envio' => $row[8],
-            'n_sellos' => $row[9],
-            'n_cajas' => $row[10],
+            'orden' => $row['orden'],
+            'year' => $row['year'],
+            'month' => $row['month'],
+            'cliente' => $row['cliente'],
+            'material' => $row['material'],
+            'lote' => $row['lote'],
+            'c_lotes' => $row['c_lotes'],
+            'p_list' => $row['p_list'],
+            'fecha_envio' => $row['fecha_envio'],
+            'n_sellos' => $row['n_sellos'],
+            'n_cajas' => $row[ 'n_cajas'],
             'estatus' => 0,
             'bascula' => 0,
-            'observaciones' => $row[11],
+            'observaciones' => $row['observaciones'],
             'captura' => "Nombre: ". $user->nombre ." Usuario:". $user->usuario,
             'estado' => "ACTIVO",
         ]);

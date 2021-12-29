@@ -43,9 +43,7 @@ class ProgramacionComprasController extends Controller
     {
         $file = $request->file('file_compra');
         Excel::import(new ImportCompra, $file);
-        return Redirect::to('/nueva_programacion')->with('errors','Necesitas pertenecer a una sala para poder ver los expedientes');
-
-
+        return Redirect::to('/nueva_programacion')->with('message','¡Se han guardado los registros con exito!');
 
     }
 

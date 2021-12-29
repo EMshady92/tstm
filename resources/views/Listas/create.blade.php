@@ -38,7 +38,8 @@
 
 <hr>
 
-<form action="{{ route('listas.store') }}" id="formulario" method="POST">
+
+ <form  action="{{route('listas.store')}}" id="formulario" method="POST" name="formulario" files="true" enctype="multipart/form-data" accept-charset="UTF-8">
                                 @csrf
 
 
@@ -72,7 +73,7 @@
 
 
                                 <div class="form-group text-right mb-0">
-                                    <button class="btn btn-primary waves-effect waves-light mr-1" onclick="submit();" id="submit"  type="submit">
+                                    <button class="btn btn-primary waves-effect waves-light mr-1" onclick="submit();" id="submit" name="submit" type="submit">
                                         Guardar
                                     </button>
                                     <button type="reset" onclick="location.href='/listas'" class="btn btn-secondary waves-effect">

@@ -156,7 +156,7 @@
           </a>
           <ul class="submenu">
             <li><a href="/nueva_programacion"><span class="menu-text">Nueva programación</span></a></li>
-            <li><a href="javascript:C_Editar_programacion();"><span class="menu-text">Editar programación</span></a></li>
+            <li><a href="/editar_programacion"><span class="menu-text">Editar programación</span></a></li>
             <li><a href="javascript:C_Reportes();"><span class="menu-text">Reportes</span></a></li>
           </ul>
         </li>

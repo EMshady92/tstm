@@ -19,7 +19,9 @@
         </div>
     </div>
     <!-- end page title -->
-
+@if(Session::has('message'))
+<p><b>{{Session::get('message')}}</b></p>
+@endif
     <hr>
                             <!--select compra o venta-->
         <div style=";margin: 0px;">

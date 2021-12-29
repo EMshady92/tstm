@@ -43,7 +43,7 @@ class ProgramacionVentasController extends Controller
     {
         $file = $request->file('file_venta');
         Excel::import(new ImportVenta, $file);
-        return Redirect::to('/nueva_programacion')->with('errors','Correcto');
+        return Redirect::to('/nueva_programacion')->with('message','¡Se han guardado los registros con exito!');
     }
 
     public function nueva_venta(Request $request)
@@ -111,6 +111,41 @@ class ProgramacionVentasController extends Controller
         //
     }
 
+    public function editar_venta(Request $request)
+    {
+        $id = $request->get('id_venta');
+        $user=Auth::user();
+        $venta=ProgramacionVentasModel::findOrFail($id);
+        $venta->orden=$request->get('orden');
+        $venta->year=$request->get('year_venta');
+        $venta->month=$request->get('month_venta');
+        $venta->cliente=$request->get('cliente');
+        $venta->material=$request->get('material_venta');
+        $venta->lote=$request->get('lote');
+        $venta->fecha_envio=$request->get('fecha_envio');
+        $venta->c_lotes=$request->get('c_lotes');
+        $venta->p_list=$request->get('p_list');
+        $venta->n_sellos=$request->get('n_sellos');
+        $venta->n_cajas=$request->get('n_cajas');
+        $venta->estatus=0;
+        $venta->bascula=0;
+        $venta->observaciones=$request->get('observaciones_venta');
+        $venta->captura="Nombre: ". $user->nombre ." Usuario:". $user->usuario;
+        $venta->estado="ACTIVO";
+        $venta->update();
+        if( $venta->update()){
+            $ventas =DB::table('programacion_ventas')
+            ->where('programacion_ventas.estado','=','ACTIVO')
+            ->get();
+            return response()->json(['venta'=>$venta,'ventas'=>$ventas]);
+        }else{
+            return false;
+        }
+       // DB::select('CALL InsertarMovimiento ("'.$user->id.'","create","tipos_promociones","'.$promocion->id.'","'.base64_encode(json_encode($promocion)).'"," ","El usuario ha creado un nuevo tipo de promoción")');
+
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -121,4 +156,30 @@ class ProgramacionVentasController extends Controller
     {
         //
     }
+
+    public function traer_ventas_dates($fecha,$orden)
+    {
+
+
+            $ventas = DB::table('programacion_ventas')
+            ->where('programacion_ventas.orden','=',$orden)
+            ->where('programacion_ventas.estado','=','ACTIVO')
+            ->whereDate('programacion_ventas.created_at','=',$fecha)
+            ->get();
+
+
+        return response()->json(['ventas'=>$ventas]);
+    }
+
+    public function datos_modal_edit_venta($cadena)
+    {
+        $id_venta = explode("_", $cadena);
+        $id = $id_venta[0];
+
+        $venta = DB::table('programacion_ventas')
+            ->where('programacion_ventas.id','=',$id)
+            ->first();
+        return response()->json(['venta'=>$venta]);
+    }
+
 }

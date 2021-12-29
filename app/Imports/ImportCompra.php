@@ -4,8 +4,9 @@ namespace App\Imports;
 
 use App\Models\ProgramacionComprasModel;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Auth;
-class ImportCompra implements ToModel
+class ImportCompra implements ToModel,WithHeadingRow
 {
     /**
     * @param array $row
@@ -16,18 +17,18 @@ class ImportCompra implements ToModel
     {
         $user=Auth::user();
         return new ProgramacionComprasModel([
-            'po' => $row[0],
-            'year' => $row[1],
-            'month' => $row[2],
-            'supplier' => $row[3],
-            'material' => $row[4],
-            'lot' => $row[5],
-            'supplier_weight' => $row[6],
-            'reception_date' => $row[7],
+            'po' => $row['po'],
+            'year' => $row['year'],
+            'month' => $row['month'],
+            'supplier' => $row['supplier'],
+            'material' => $row['material'],
+            'lot' => $row['lot'],
+            'supplier_weight' => $row['supplier_weight'],
+            'reception_date' => $row['recepcion_date'],
             'estatus' => 0,
             'bascula' => 0,
-            'observaciones' => $row[8],
-            'importacion' => $row[9],
+            'observaciones' => $row['observaciones'],
+            'importacion' => $row['tipo_de_compra'],
             'captura' => "Nombre: ". $user->nombre ." Usuario:". $user->usuario,
             'estado' => "ACTIVO",
         ]);
