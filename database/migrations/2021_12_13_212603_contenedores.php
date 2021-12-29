@@ -15,10 +15,10 @@ class Contenedores extends Migration
     {
         Schema::create('contenedores', function (Blueprint $table) {
             $table->id();
-            $table->string('NOMBRE');
-            $table->string('PESO');
-            $table->string('CAPTURA');
-            $table->string('ESTADO');
+            $table->string('nombre');
+            $table->string('peso');
+            $table->string('captura');
+            $table->string('estado');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@
             <div class="col-md-6">
                 <div class="card">
                      <label for="monto_ingreso">Nombre:</label>
-                <input type="text" class="form-control" id="nombre_e" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="" value="">
+                <input type="text" class="form-control" id="nombre" onkeyup="javascript:this.value=this.value.toUpperCase();" v-model="articulo.nombre">
 
                 <label for="fecha_ingreso">Usuario:</label>
                 <input type="text" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" id="user_e" placeholder="" value="">
@@ -282,6 +282,13 @@
 
 <script>
     export default {
+        data(){
+            return{
+                articulo:{
+                    nombre:'primer nombre',
+                }
+            }
+        },
 
     }
 </script>

@@ -112,6 +112,7 @@ class ListasController extends Controller
            // $lista->captura=$user->name;
             $lista->estado="INACTIVO";
             $lista->update();
+            return $lista;
 
     }
 }

@@ -52,8 +52,8 @@
                     <tbody>
                         @foreach($listas as $lista)
                         <tr>
-                            <td>{{$lista->TIPO}}</td>
-                            <td>{{$lista->NOMBRE}}</td>
+                            <td>{{$lista->tipo}}</td>
+                            <td>{{$lista->nombre}}</td>
 
 
 
@@ -66,7 +66,7 @@
                                             class="zmdi zmdi-delete"></i></a>
                                 </td>
 
-                            <td><span class="badge badge-success">{{$lista->ESTADO}}</span></td>
+                            <td><span class="badge badge-success">{{$lista->estado}}</span></td>
 
 
 

@@ -9,7 +9,7 @@
 	<title>TSTM - Home</title>
 
     <link rel="stylesheet" href="{{asset("libs/bower/font-awesome/css/font-awesome.min.css")}}">
-    <link rel="stylesheet" href="{{asset("libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css")}}">
+    <link rel="stylesheet" href="{{asset("bower/material-design-iconic-font/dist/css/material-design-iconic-font.css")}}">
 	<!-- build:css ../assets/css/app.min.css -->
     <link rel="stylesheet" href="{{asset("libs/bower/animate.css/animate.min.css")}}">
     <link rel="stylesheet" href="{{asset("libs/bower/fullcalendar/dist/fullcalendar.min.css")}}">
@@ -155,7 +155,7 @@
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
           <ul class="submenu">
-            <li><a href="javascript:C_nueva_programacion();"><span class="menu-text">Nueva programación</span></a></li>
+            <li><a href="/nueva_programacion"><span class="menu-text">Nueva programación</span></a></li>
             <li><a href="javascript:C_Editar_programacion();"><span class="menu-text">Editar programación</span></a></li>
             <li><a href="javascript:C_Reportes();"><span class="menu-text">Reportes</span></a></li>
           </ul>
@@ -202,10 +202,10 @@
             <li><a><span class="menu-text">Usuarios Kioskos</span></a></li>
             <li><a><span class="menu-text">Catálogos</span></a></li>
             <li><a><span class="menu-text">Materia prima</span></a></li>
-            <li><a><span class="menu-text">Ventas</span></a></li>
-            <li><a><span class="menu-text">Sal / Cal</span></a></li>
+            <li><a href="/listas_ventas"><span class="menu-text">Ventas</span></a></li>
+            <li><a href="/listas_cal_sal" ><span class="menu-text">Sal / Cal</span></a></li>
             <li><a><span class="menu-text">Bypro</span></a></li>
-            <li><a><span class="menu-text">Calidad</span></a></li>
+            <li><a href="/listas_cali/create"><span class="menu-text">Calidad</span></a></li>
             <li><a><span class="menu-text">Update inventario</span></a></li>
             <li><a><span class="menu-text">Materia prima</span></a></li>
             <li><a><span class="menu-text">Reporte global</span></a></li>
@@ -232,9 +232,6 @@
         @yield('content')
 
     </div>
-
-
-
 </div><!-- .wrap -->
   <!-- APP FOOTER -->
 
@@ -243,7 +240,6 @@
 
 	<!-- build:js ../assets/js/core.min.js -->
 
-     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="{{asset("js/app.js")}}"></script>
     <script src="{{asset("libs/bower/jquery/dist/jquery.js")}}"></script>
     <script src="{{asset("libs/bower/jquery-ui/jquery-ui.min.js")}}"></script>
@@ -264,9 +260,10 @@
      <script src="{{asset("js/app.js")}}"></script>
      <script src="{{asset("js/app-nativo.js")}}"></script>
 	<!-- endbuild -->
-    <script src="{{asset("libs/bower/moment/moment.js")}}"></script>
-    <script src="{{asset("libs/bower/fullcalendar/dist/fullcalendar.min.js")}}"></script>
+    <script src="{{asset("bower/moment/moment.js")}}"></script>
+    <script src="{{asset("bower/fullcalendar/dist/fullcalendar.min.js")}}"></script>
     <script src="{{asset("js/fullcalendar.js")}}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 @yield('javascript')
 
