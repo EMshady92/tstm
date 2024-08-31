@@ -1,26 +1,20 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 
 @section('content')
-<div class="container">
-   {{--  <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+<div class="w-full h-full">
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <div style="height:10%;" class="w-full fixed">
+        @include('top-bar')
+    </div>
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
+    <div style="height:80%;" class="w-full overflow-y-auto overflow-x-hidden fixed">
+        @include('main')
+    </div>
+
+{{--     <div style="height:10%;" class="w-full">
+        @include('footer-bar')
     </div> --}}
-<example-component>
-</example-component>
-</div>
 
+
+</div>
 @endsection
