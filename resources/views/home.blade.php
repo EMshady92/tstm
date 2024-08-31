@@ -11,10 +11,5 @@
         @include('main')
     </div>
 
-{{--     <div style="height:10%;" class="w-full">
-        @include('footer-bar')
-    </div> --}}
-
-
 </div>
 @endsection
